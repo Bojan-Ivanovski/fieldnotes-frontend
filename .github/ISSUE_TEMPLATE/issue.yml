@@ -1,0 +1,66 @@
+name: Work item
+description: Track one bounded change with a clear outcome.
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Keep one issue to one reviewable outcome. Fill in the request and scope now;
+        leave analysis and implementation plan for refinement before work begins.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: State the current situation, the expected outcome, and who benefits. For a new capability, describe the user need.
+      placeholder: What happens today? What should happen instead, and for whom?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Bound the change. Name adjacent work that is explicitly excluded.
+      value: |
+        **Affects:**
+
+        **In scope**
+        -
+
+        **Out of scope**
+        -
+    validations:
+      required: true
+
+  - type: textarea
+    id: analysis
+    attributes:
+      label: Analysis
+      description: Fill during investigation, before implementation. Capture current code behavior, constraints, compatibility, and options where relevant.
+      value: _Not analyzed yet._
+
+  - type: textarea
+    id: plan
+    attributes:
+      label: Implementation plan
+      description: Fill after the approach is agreed. Keep it short; link a design note for substantial detail.
+      value: _Not agreed yet._
+
+  - type: textarea
+    id: details
+    attributes:
+      label: References and details
+      description: Add relevant issue links, code findings, screenshots, or other supporting context as the work progresses.
+      placeholder: None yet.
+
+  - type: textarea
+    id: closeout
+    attributes:
+      label: Closeout
+      description: Complete before closing. Record what shipped, how it was verified, and any follow-up work.
+      value: |
+        **Delivered:** _Complete when closing._
+
+        **Verification:** _Commands and/or manual checks performed._
+
+        **Follow-up:** _Links to follow-up issues, or “None”._
