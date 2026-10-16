@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router'
 import { AppLayout } from '../components/layout/AppLayout.tsx'
 import { FavoritesPage } from '../routes/FavoritesPage.tsx'
-import { HomePage } from '../routes/HomePage.tsx'
+import { HomePage } from '../routes/HomePage/HomePage.tsx'
 import { NewNotePage } from '../routes/NewNotePage.tsx'
 import { NotesPage } from '../routes/NotesPage.tsx'
 import { NotFoundPage } from '../routes/NotFoundPage.tsx'

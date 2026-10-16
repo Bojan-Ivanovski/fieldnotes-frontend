@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "npm run check:component-styles && eslint .",
+    "preview": "vite preview",
+    "check:component-styles": "node scripts/check-component-styles.mjs"
   },
   "dependencies": {
     "fieldnotes-ui": "file:../../Downloads/fieldnotes-ui-0.4.0.tgz",

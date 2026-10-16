@@ -1,8 +1,9 @@
+import './HomePage.css'
 import { Card, Heading, Text } from 'fieldnotes-ui'
 
 export function HomePage() {
   return (
-    <div className="app-page">
+    <div className="home-page">
       <div>
         <Text tone="muted">Welcome back</Text>
         <Heading>Make room for a thought.</Heading>
