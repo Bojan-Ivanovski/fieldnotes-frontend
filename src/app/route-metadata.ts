@@ -31,7 +31,13 @@ export function getRouteMetadata(pathname: string): RouteMetadata {
     '/notes': 'All notes',
     '/notes/new': 'New note',
     '/favorites': 'Favorites',
-    '/settings': 'Settings',
+    '/settings': 'Account settings',
+    '/sign-in': 'Sign in',
+    '/sign-up': 'Create account',
+    '/verify-email': 'Verify email',
+    '/forgot-password': 'Reset your password',
+    '/reset-password': 'Choose a new password',
+    '/mfa': 'Verify your sign-in',
     '/preview/account': 'Account preview',
   }
   const title = titles[route] ?? (route.startsWith('/preview/') ? 'Content preview' : 'Page not found')

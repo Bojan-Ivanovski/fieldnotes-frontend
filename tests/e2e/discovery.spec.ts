@@ -69,7 +69,7 @@ test('illustrated Home stays within narrow and tablet viewports in every demo st
 test('identity changes clear protected results, including browser history and sign-out', async ({ page }) => {
   await page.goto('/search?q=My+unfinished&type=all')
   await expect(page.getByRole('heading', { name: 'No threads found. Yet.' })).toBeVisible()
-  await page.getByRole('link', { name: 'Sign in', exact: true }).click()
+  await page.getByRole('link', { name: 'Preview controls' }).click()
   await expect(page.getByText('no real authentication', { exact: false })).toBeVisible()
   await page.getByRole('button', { name: 'Continue as Maya' }).click()
   await expect(page.getByRole('link', { name: 'My unfinished notes', exact: true })).toBeVisible()

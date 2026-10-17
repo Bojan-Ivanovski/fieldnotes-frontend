@@ -1,12 +1,15 @@
 import './DiscoveryLayout.css'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { Button } from 'fieldnotes-ui'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { DiscoveryProvider } from '../DiscoveryProvider.tsx'
+import { useAuth } from '../../auth/context.ts'
 import { useDiscovery } from '../context.ts'
 
 function DiscoveryShell() {
   const { session, preview } = useDiscovery()
+  const auth = useAuth()
+  const [logoutError, setLogoutError] = useState('')
   const location = useLocation()
   const previousPath = useRef(location.pathname)
   const accountLink = `/preview/account?returnTo=${encodeURIComponent(location.pathname + location.search)}`
@@ -27,7 +30,7 @@ function DiscoveryShell() {
       <div className="discovery-preview-banner">
         <span className="discovery-preview-dot" aria-hidden="true" />
         <strong>Foltivo preview</strong>
-        <span>Sample content & accounts. Changes aren’t saved.</span>
+        <span>Sample discovery content & preview accounts. Real accounts are separate.</span>
         <Link to={accountLink}>Preview controls <span aria-hidden="true">↗</span></Link>
       </div>
       <header className="discovery-header">
@@ -40,14 +43,12 @@ function DiscoveryShell() {
           <Link to="/#how-it-works">How it works</Link>
         </nav>
         <div className="discovery-account-links">
-          {session.account ? (
-            <><Link className="discovery-link-button" to={accountLink}>Sample account: {session.account.id}</Link><Button variant="ghost" size="sm" onClick={() => preview.setAccount(null)}>Sign out of preview</Button></>
-          ) : (
-            <>
-              <Link to={`${accountLink}&intent=sign-in`}>Sign in</Link>
-              <Link className="discovery-link-button" to={`${accountLink}&intent=create`}>Create an account <span aria-hidden="true">↗</span></Link>
-            </>
-          )}
+          {auth.status === 'resolving' ? <span role="status">Checking account…</span> : auth.status === 'unavailable' ? <><span>Account unavailable</span><Button variant="ghost" size="sm" onClick={() => { void auth.refresh() }}>Retry</Button><Link to="/sign-in">Sign in</Link><Link to="/sign-up">Create an account</Link></> : auth.session?.state === 'authenticated' ? <><Link to="/settings">{auth.session.user?.name || 'Account settings'}</Link><Button variant="ghost" size="sm" onClick={() => { setLogoutError(''); void auth.mutate('/auth/logout').catch(error => setLogoutError(error instanceof Error ? error.message : 'Sign out failed. Please try again.')) }}>Sign out</Button></> : <>
+            <Link to={`/sign-in?returnTo=${encodeURIComponent(location.pathname + location.search)}`}>Sign in</Link>
+            <Link className="discovery-link-button" to="/sign-up">Create an account <span aria-hidden="true">↗</span></Link>
+          </>}
+          {session.account && <Button variant="ghost" size="sm" onClick={() => preview.setAccount(null)}>Sign out of preview</Button>}
+          {logoutError && <span role="alert">{logoutError}</span>}
         </div>
       </header>
       <main id="discovery-main" className="discovery-main" tabIndex={-1}>

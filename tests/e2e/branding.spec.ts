@@ -42,7 +42,7 @@ test('Search metadata omits query state and is removed on preview navigation and
   await expectPublicUrl(page, 'https://foltivo.com/search')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Search Books and Folios — Foltivo')
-  await page.getByRole('link', { name: 'Sign in', exact: true }).click()
+  await page.getByRole('link', { name: 'Preview controls' }).click()
   await expect(page).toHaveTitle('Account preview — Foltivo')
   await expectNoPublicUrl(page)
   await page.getByRole('button', { name: 'Continue as Maya' }).click()
