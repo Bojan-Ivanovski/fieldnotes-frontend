@@ -6,7 +6,7 @@ import {
   safeReturnTo,
 } from '../src/features/auth/client.ts'
 import type { Session } from '../src/features/auth/client.ts'
-import { createAuthRuntime } from '../src/features/auth/runtime.ts'
+import { createAuthRuntime } from '../src/features/auth/AuthProvider/runtime.ts'
 const anonymous: Session = {
   state: 'anonymous',
   user: null,

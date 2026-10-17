@@ -4,7 +4,7 @@ import type { FormEvent } from 'react'
 import { Alert, Button, Field, Input } from 'fieldnotes-ui'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { safeReturnTo } from '../client.ts'
-import { useAuth } from '../context.ts'
+import { useAuth } from '../AuthProvider/context.ts'
 import { PasswordField } from '../PasswordField/PasswordField.tsx'
 import { passkeysSupported, authenticatePasskey } from '../passkeys.ts'
 type Page =

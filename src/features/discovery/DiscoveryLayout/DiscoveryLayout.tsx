@@ -2,9 +2,9 @@ import './DiscoveryLayout.css'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { Button } from 'fieldnotes-ui'
 import { useEffect, useRef, useState } from 'react'
-import { DiscoveryProvider } from '../DiscoveryProvider.tsx'
-import { useAuth } from '../../auth/context.ts'
-import { useDiscovery } from '../context.ts'
+import { DiscoveryProvider } from '../DiscoveryProvider/DiscoveryProvider.tsx'
+import { useAuth } from '../../auth/AuthProvider/context.ts'
+import { useDiscovery } from '../DiscoveryProvider/context.ts'
 
 function DiscoveryShell() {
   const { session, preview } = useDiscovery()

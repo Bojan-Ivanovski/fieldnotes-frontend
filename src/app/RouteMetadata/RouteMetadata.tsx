@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router'
-import { PRODUCT_NAME } from './brand.ts'
+import { PRODUCT_NAME } from '../brand.ts'
 import { getRouteMetadata } from './route-metadata.ts'
 
 function updateMeta(

@@ -15,7 +15,7 @@ import { Link } from 'react-router'
 import QRCode from 'qrcode'
 import { authRequest } from '../client.ts'
 import type { AccountSession, Security } from '../client.ts'
-import { useAuth } from '../context.ts'
+import { useAuth } from '../AuthProvider/context.ts'
 import { PasswordField } from '../PasswordField/PasswordField.tsx'
 import { createPasskey, passkeysSupported } from '../passkeys.ts'
 export function AccountSettingsPage() {

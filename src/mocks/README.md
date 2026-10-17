@@ -19,7 +19,7 @@ mocks/
 
 The UI consumes `DiscoveryService` from `features/discovery/types.ts` rather
 than importing resource fixtures. The composition point is
-`features/discovery/DiscoveryProvider.tsx`. Preview controls are deliberately
+`features/discovery/DiscoveryProvider/DiscoveryProvider.tsx`. Preview controls are deliberately
 separate from the service interface so future live services do not need to
 implement sample-account switching or failure simulation.
 

@@ -1,5 +1,5 @@
-import { AuthError, authRequest } from './client.ts'
-import type { Session } from './client.ts'
+import { AuthError, authRequest } from '../client.ts'
+import type { Session } from '../client.ts'
 export interface AuthSnapshot {
   status: 'resolving' | 'ready' | 'unavailable'
   session: Session | null

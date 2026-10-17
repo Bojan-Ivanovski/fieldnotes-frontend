@@ -67,3 +67,9 @@ with local styles must be grouped as `Component/Component.tsx` alongside
 `Component/Component.css`, imported directly by that TSX file. Keep component
 styles, responsive rules, and animations together; global CSS is for resets and
 foundations. Run `npm run check:component-styles` (also included in lint).
+
+Group a component and its related TypeScript helpers, context, hooks or runtime
+in `Component/` even without CSS. Keep shared clients and feature/domain-wide
+modules at their shared level. Follow the ownership guidance in
+[component structure](docs/dev/component-structure.md) and update imports and
+documentation references when moving files.

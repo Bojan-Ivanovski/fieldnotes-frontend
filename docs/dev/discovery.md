@@ -38,7 +38,7 @@ Vite provides that fallback locally.
 ## Source boundaries
 
 - `src/features/discovery/types.ts` defines the UI-facing service/session shapes.
-- `src/features/discovery/DiscoveryProvider.tsx` composes the current mock service
+- `src/features/discovery/DiscoveryProvider/DiscoveryProvider.tsx` composes the current mock service
   with TanStack Query and subscribes to identity changes.
 - Search submits through a shared form; state comes from URL parameters rather
   than an independent copy of query/filter state.
@@ -92,7 +92,7 @@ They must never be used to protect real user data.
 
 ## Browser identity
 
-The shared `src/app/RouteMetadata.tsx` updates titles, descriptions, robots,
+The shared `src/app/RouteMetadata/RouteMetadata.tsx` updates titles, descriptions, robots,
 canonical links, and Open Graph metadata across discovery and legacy routes.
 Home uses the intended `https://foltivo.com/` URL. Search uses `/search` without
 query/cursor information and is not indexed. Preview, private, and unknown

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { getRouteMetadata } from '../src/app/route-metadata.ts'
+import { getRouteMetadata } from '../src/app/RouteMetadata/route-metadata.ts'
 
 // Check public URL boundaries, rather than duplicating every display string.
 test('public pages use the intended Foltivo origin and distinct titles', () => {

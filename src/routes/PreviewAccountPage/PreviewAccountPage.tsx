@@ -1,7 +1,7 @@
 import './PreviewAccountPage.css'
 import { Button } from 'fieldnotes-ui'
 import { Link, useNavigate, useSearchParams } from 'react-router'
-import { useDiscovery } from '../../features/discovery/context.ts'
+import { useDiscovery } from '../../features/discovery/DiscoveryProvider/context.ts'
 import { mockScenarios } from '../../mocks/discovery/scenarios.ts'
 import type { MockScenario } from '../../mocks/discovery/scenarios.ts'
 

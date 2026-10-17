@@ -1,7 +1,7 @@
 import './HomePage.css'
 import { Link } from 'react-router'
 import { SearchForm } from '../../features/discovery/SearchForm/SearchForm.tsx'
-import { useDiscovery } from '../../features/discovery/context.ts'
+import { useDiscovery } from '../../features/discovery/DiscoveryProvider/context.ts'
 import { IdeaAtlas } from '../../features/discovery/IdeaAtlas/IdeaAtlas.tsx'
 import { ProductDemo } from '../../features/discovery/ProductDemo/ProductDemo.tsx'
 import { searchUrl } from '../../features/discovery/search-state.ts'

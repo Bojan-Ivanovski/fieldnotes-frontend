@@ -2,7 +2,7 @@ import './ResourcePreviewPage.css'
 import { useQuery } from '@tanstack/react-query'
 import { Button } from 'fieldnotes-ui'
 import { Link, useParams } from 'react-router'
-import { useDiscovery } from '../../features/discovery/context.ts'
+import { useDiscovery } from '../../features/discovery/DiscoveryProvider/context.ts'
 import { ResourceResult } from '../../features/discovery/ResourceResult/ResourceResult.tsx'
 import { DiscoveryError } from '../../features/discovery/types.ts'
 

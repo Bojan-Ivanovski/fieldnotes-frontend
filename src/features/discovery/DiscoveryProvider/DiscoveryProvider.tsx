@@ -1,7 +1,7 @@
 import { useCallback, useState, useSyncExternalStore } from 'react'
 import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createMockDiscoveryService } from '../../mocks/discovery/client.ts'
+import { createMockDiscoveryService } from '../../../mocks/discovery/client.ts'
 import { DiscoveryContext } from './context.ts'
 
 export function DiscoveryProvider({ children }: { children: ReactNode }) {

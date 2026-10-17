@@ -3,7 +3,7 @@ import {
   PRODUCT_NAME,
   PRODUCT_TAGLINE,
   PUBLIC_ORIGIN,
-} from './brand.ts'
+} from '../brand.ts'
 
 export interface RouteMetadata {
   title: string

@@ -2,7 +2,7 @@ import './SearchPage.css'
 import { useQuery } from '@tanstack/react-query'
 import { Button, SearchResults } from 'fieldnotes-ui'
 import { Link, useSearchParams } from 'react-router'
-import { useDiscovery } from '../../features/discovery/context.ts'
+import { useDiscovery } from '../../features/discovery/DiscoveryProvider/context.ts'
 import { SearchForm } from '../../features/discovery/SearchForm/SearchForm.tsx'
 import { ResourceResult } from '../../features/discovery/ResourceResult/ResourceResult.tsx'
 import {

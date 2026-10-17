@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
-import type { DiscoveryService, DiscoverySession } from './types.ts'
-import type { createMockDiscoveryService } from '../../mocks/discovery/client.ts'
+import type { DiscoveryService, DiscoverySession } from '../types.ts'
+import type { createMockDiscoveryService } from '../../../mocks/discovery/client.ts'
 
 export interface DiscoveryContextValue {
   service: DiscoveryService
