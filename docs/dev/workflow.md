@@ -9,18 +9,22 @@ comments.
 
 1. **Propose.** Create a work item or epic from its issue form. Agree on the
    outcome and scope before implementation starts.
-2. **Refine.** Inspect the current code and existing issues. Record constraints,
-   compatibility concerns, and an agreed approach in the issue. Split work that
-   cannot be reviewed as one bounded change into linked issues.
+2. **Analyse and discuss.** Codex inspects the code and records factual findings,
+   constraints, and compatibility concerns. Each possible solution is a separate
+   Markdown attachment linked from Analysis. Codex explains the trade-offs and
+   may recommend an option; the developer chooses. Leave the Solution section
+   pending until that choice is made. Then mark the chosen attachment
+   **[Selected Solution]** and fill Solution with the changes, affected areas,
+   and reason for choosing it. Split work that cannot be reviewed as one bounded
+   change into linked issues.
 3. **Implement.** Work on a branch associated with the issue. Keep changes within
    its agreed scope. Update the issue when a decision changes the plan or scope.
 4. **Review.** Open a pull request that links the issue (for example, `Closes
    #12`). Describe the change and verification in the pull request. Address
    review feedback before merging.
-5. **Close out.** Before closing an issue or epic, record what shipped, how it
-   was verified, and any follow-up work. A linked closing keyword may close a
-   work item when its pull request merges; complete its closeout details before
-   merge.
+5. **Complete.** Record the delivered change and verification in the pull request.
+   Link follow-up work where needed. A linked closing keyword may close the work
+   item when its pull request merges.
 
 ## Branches and commits
 
@@ -44,8 +48,15 @@ Establish the initial frontend and development workflow so release work can
 proceed from a consistent, documented baseline.
 ```
 
-After the initial commit, each work item gets its own branch from the repository's
-default branch. Use `<type>/<issue-number>-<short-slug>` (for example,
+After the initial commit, start each work item's branch from `develop`. Target
+its pull request to `develop`. If work depends on an unmerged issue branch,
+branch from that dependency and target the first PR to it; record the dependency
+and keep its commits out of the documentation/change diff. Rebase or retarget
+when the dependency is merged. Promote approved releases from `develop` to
+`main` through a separate pull request. Do not fast-forward or merge issue work
+into local `develop` or `main` as a substitute for the developer's PR review.
+
+Use `<type>/<issue-number>-<short-slug>` (for example,
 `feature/12-note-editor`). Keep one issue's work on its branch and use focused
 commits with this format:
 
@@ -62,11 +73,11 @@ Every commit body must contain only a `**Summary**` heading and a short
 explanation of why the change was made.
 
 Stage only files belonging to the change, review the staged diff before
-committing, and never force-push a shared branch. After pushing a commit, do not
-rewrite it unless a maintainer explicitly asks. For an authorized rewrite, use
-`--force-with-lease` and stop if the remote has advanced. Push and open a pull
-request when the work is ready for review; do not merge without the required
-review and checks.
+committing, and wait for the developer to request commits and pushes. An earlier
+commit or push request is not standing authorization for future work. After
+pushing a commit, do not rewrite it unless the developer explicitly asks. For an
+authorized rewrite, use `--force-with-lease` and stop if the remote has advanced.
+The developer reviews and merges pull requests.
 
 ## Labels and project status
 
@@ -74,8 +85,11 @@ Labels describe work; they do not replace the issue body or project board.
 Use the repository's configured labels when available. Keep label groups
 independent where practical:
 
-- **Type:** `Type: Feature`, `Type: Bug`, `Type: Design Defect`,
-  `Type: Refactor`, `Type: Documentation`, or `Type: Incident`.
+- **Type:** read the actual repository labels with `gh label list`; examples
+  include `Type: Feature`, `Type: Bug`, and `Type: Documentation`. Use exactly one
+  appropriate existing type for work items. Do not invent a substitute type.
+- **Component:** apply the appropriate existing component labels after a
+  solution is selected, based on the areas it affects.
 - **Priority:** `Priority: High`, `Priority: Medium`, or `Priority: Low`.
 - **Size:** `Size: Small`, `Size: Medium`, or `Size: Large` as a rough planning
   aid, not a promise.
@@ -89,11 +103,20 @@ blocked status once work can continue.
 
 ## Dependencies and grouped work
 
-Use GitHub's issue references and task lists to connect related work. An epic
-states one outcome and links its child issues in delivery order. Child issues
-should be independently reviewable and should not duplicate the epic's whole
-description. Mark completed child items in the epic and close it only after its
-completion criteria and closeout are satisfied.
+Place work tickets under an existing delivery group where applicable; independent
+work defaults to epic #1 unless the developer specifies another parent. See
+[ticket hierarchy and starting order](ticket-hierarchy.md). Pass the chosen parent with `--parent`
+when creating or editing a ticket. Do not repeat the parent in
+the description. Epics contain only an Objective and use the title
+`<version> -- Foltivo Frontend`. Track detailed work in the child issues.
+
+Delivery-group parents are ordinary work items using the five-section template,
+not additional release epics. They coordinate an outcome; implementation and
+verification belong to bounded children. Preserve existing analysis and selected
+solutions when regrouping. Add native blocked-by links for actual implementation
+prerequisites; a shared parent does not define execution order. Analysis and UI
+exploration may proceed alongside dependency work. Keep optional enhancements
+from blocking the first usable slice merely because they share a parent.
 
 ## Pull requests
 
