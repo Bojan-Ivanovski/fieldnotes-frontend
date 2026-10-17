@@ -108,3 +108,54 @@ test('malformed users, methods and inconsistent assurance never authenticate a b
     assert.equal(runtime.getSnapshot().session, null)
   }
 })
+
+test('focus refresh cannot publish the old actor while an identity mutation is pending', async () => {
+  let finish: ((value: Response) => void) | undefined
+  let next = authenticated
+  let reads = 0
+  const runtime = createAuthRuntime(createAuthClient(async url => {
+    if (String(url).endsWith('/auth/logout')) return new Promise(resolve => { finish = resolve })
+    reads++; return json(next)
+  }))
+  await runtime.refresh()
+  const logout = runtime.mutate('/auth/logout')
+  await runtime.refresh()
+  assert.equal(reads, 1)
+  assert.equal(runtime.getSnapshot().session, null)
+  next = anonymous
+  finish!(json(anonymous)); await logout
+  assert.equal(runtime.getSnapshot().session?.state, 'anonymous')
+})
+
+test('cookie-changing calls and session reads share one coordinator across clients', async () => {
+  let queue: Promise<unknown> = Promise.resolve()
+  const coordinate = <T>(operation: () => Promise<T>): Promise<T> => {
+    const result = queue.then(operation)
+    queue = result.catch(() => {})
+    return result
+  }
+  let release: (() => void) | undefined
+  const paused = new Promise<void>(resolve => { release = resolve })
+  const calls: string[] = []
+  const fetcher: typeof fetch = async url => {
+    calls.push(String(url))
+    if (String(url).endsWith('/auth/login')) await paused
+    return json(authenticated)
+  }
+  const firstTab = createAuthClient(fetcher, coordinate)
+  const secondTab = createAuthClient(fetcher, coordinate)
+  const login = firstTab('/auth/login', { method: 'POST', body: {} })
+  const read = secondTab('/auth/session')
+  await Promise.resolve(); await Promise.resolve()
+  assert.deepEqual(calls, ['/api/v1/auth/login'])
+  release!(); await Promise.all([login, read])
+  assert.deepEqual(calls, ['/api/v1/auth/login', '/api/v1/auth/session'])
+})
+
+
+test('session revocation shares the cookie coordinator because it can clear the current cookie', async () => {
+  let coordinated = 0
+  const client = createAuthClient(async () => json({ message: 'Revoked' }), async operation => { coordinated++; return operation() })
+  await client('/auth/sessions/current-id', { method: 'DELETE' })
+  assert.equal(coordinated, 1)
+})

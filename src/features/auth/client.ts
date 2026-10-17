@@ -17,8 +17,15 @@ export function safeReturnTo(value: string | null): string {
     return url.pathname + url.search
   } catch { return '/settings' }
 }
-export function createAuthClient(fetcher: typeof fetch = fetch) {
-  return async function request<T>(path: string, options: { method?: string; body?: unknown; csrfToken?: string; signal?: AbortSignal } = {}): Promise<T> {
+type Coordinate = <T>(operation: () => Promise<T>) => Promise<T>
+const cookieRequests = new Set(['/auth/session', '/auth/login', '/auth/logout', '/auth/mfa/challenge', '/auth/passkeys/login/finish'])
+async function coordinateBrowserSession<T>(operation: () => Promise<T>): Promise<T> {
+  if (typeof window === 'undefined') return operation()
+  if (!navigator.locks) throw new AuthError('This browser cannot safely coordinate account sessions. Use a current browser in a secure context.')
+  return navigator.locks.request('foltivo-auth-session', operation)
+}
+export function createAuthClient(fetcher: typeof fetch = fetch, coordinate: Coordinate = coordinateBrowserSession) {
+  async function send<T>(path: string, options: { method?: string; body?: unknown; csrfToken?: string; signal?: AbortSignal } = {}): Promise<T> {
     const method = options.method ?? 'GET'
     let response: Response
     try {
@@ -34,6 +41,9 @@ export function createAuthClient(fetcher: typeof fetch = fetch) {
     if (!response.ok) throw new AuthError(data?.error?.message ?? 'The request could not be completed.', data?.error?.code ?? 'unavailable', response.status)
     if (!data || typeof data !== 'object') throw new AuthError('Account services returned an invalid response.')
     return data as T
+  }
+  return function request<T>(path: string, options: Parameters<typeof send>[1] = {}): Promise<T> {
+    return (cookieRequests.has(path) || (options.method === 'DELETE' && path.startsWith('/auth/sessions/'))) ? coordinate(() => send<T>(path, options)) : send<T>(path, options)
   }
 }
 export const authRequest = createAuthClient()

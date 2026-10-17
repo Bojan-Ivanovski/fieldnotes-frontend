@@ -16,6 +16,7 @@ export function createAuthRuntime(request = authRequest, clearProtected = () => 
   let snapshot: AuthSnapshot = { status: 'resolving', session: null, generation: 0 }
   let requestGeneration = 0
   let identityEpoch = 0
+  let identityInFlight = false
   let actorKey = ''
   let controller: AbortController | null = null
   const listeners = new Set<() => void>()
@@ -31,6 +32,7 @@ export function createAuthRuntime(request = authRequest, clearProtected = () => 
   }
   async function refresh(invalidateIdentity = false) {
     if (invalidateIdentity) invalidate()
+    if (identityInFlight) return
     const generation = ++requestGeneration
     controller?.abort()
     controller = new AbortController()
@@ -48,7 +50,8 @@ export function createAuthRuntime(request = authRequest, clearProtected = () => 
   async function mutate<T>(path: string, body: unknown = {}, method = 'POST'): Promise<T> {
     if (snapshot.status !== 'ready' || !snapshot.session) throw new AuthError('Your session must be checked before continuing.')
     const csrfToken = snapshot.session.csrfToken
-    if (identityMutations.has(path)) invalidate()
+    const changesIdentity = identityMutations.has(path) || (method === 'DELETE' && path.startsWith('/auth/sessions/'))
+    if (changesIdentity) { identityInFlight = true; invalidate() }
     else { ++requestGeneration; controller?.abort(); clearProtected() }
     const epoch = identityEpoch
     try {
@@ -57,7 +60,10 @@ export function createAuthRuntime(request = authRequest, clearProtected = () => 
       return result
     } finally {
       // A response from the previous actor cannot refresh or overwrite the new actor.
-      if (epoch === identityEpoch) await refresh()
+      if (changesIdentity) {
+        identityInFlight = false
+        await refresh(epoch !== identityEpoch)
+      } else if (epoch === identityEpoch) await refresh()
     }
   }
   return { getSnapshot: () => snapshot, subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener) } }, refresh, mutate,
