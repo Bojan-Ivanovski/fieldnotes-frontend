@@ -1,7 +1,7 @@
 # Component, TypeScript and stylesheet structure
 
-Every TSX file with local styles must have its own directory and matching CSS
-file. Import the stylesheet directly from the TSX file:
+Except for the single module layout described below, every TSX file with local
+styles must have its own directory and matching CSS file. Import the stylesheet directly from the TSX file:
 
 ```text
 SearchForm/
@@ -14,7 +14,7 @@ import './SearchForm.css'
 ```
 
 Use the component's exact name and capitalization for the directory and both
-files. This applies to pages, layouts, illustrations, and ordinary components.
+files. This applies to pages, shared layouts, illustrations, and ordinary components.
 Keep responsive rules, keyframes, and state styles with the component that owns
 them. Do not accumulate feature-wide component styling in a single stylesheet.
 When moving a component, update its imports and all consumers.
@@ -67,3 +67,18 @@ references when moving files.
 Code review enforces TypeScript ownership; the automated component-style check
 continues to enforce the CSS rules only. This extension was requested by the
 developer in [issue #58](https://github.com/Bojan-Ivanovski/foltivo-frontend/issues/58).
+
+## Module layout exception and ownership
+
+Follow [source structure](source-structure.md) for module/shared ownership and
+promotion rules. Each module has one layout, placed directly in its singular
+layout/ directory as DiscoveryLayout.tsx and DiscoveryLayout.css, for example.
+Helpers used only by that layout stay alongside it. Helpers with broader use
+move to their appropriate module group or are promoted to shared when genuinely
+used across modules. Shared layouts retain named component folders because
+shared/layout/ can contain several layouts.
+
+Move CSS and owned TypeScript files together when promoting a component or
+layout. Promotion is an ordinary evolution of ownership, not an exception that
+requires freezing the original directory design. The CSS checker supports the direct module layout convention and rejects
+multiple direct layouts in one module.

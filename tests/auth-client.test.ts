@@ -4,9 +4,9 @@ import {
   AuthError,
   createAuthClient,
   safeReturnTo,
-} from '../src/features/auth/client.ts'
-import type { Session } from '../src/features/auth/client.ts'
-import { createAuthRuntime } from '../src/features/auth/AuthProvider/runtime.ts'
+} from '../src/modules/auth/data/client.ts'
+import type { Session } from '../src/modules/auth/data/client.ts'
+import { createAuthRuntime } from '../src/modules/auth/providers/AuthProvider/runtime.ts'
 const anonymous: Session = {
   state: 'anonymous',
   user: null,

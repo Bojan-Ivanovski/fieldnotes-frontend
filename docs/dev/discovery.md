@@ -37,13 +37,13 @@ Vite provides that fallback locally.
 
 ## Source boundaries
 
-- `src/features/discovery/types.ts` defines the UI-facing service/session shapes.
-- `src/features/discovery/DiscoveryProvider/DiscoveryProvider.tsx` composes the current mock service
+- `src/modules/discovery/data/types.ts` defines the UI-facing service/session shapes.
+- `src/modules/discovery/providers/DiscoveryProvider/DiscoveryProvider.tsx` composes the current mock service
   with TanStack Query and subscribes to identity changes.
 - Search submits through a shared form; state comes from URL parameters rather
   than an independent copy of query/filter state.
-- `src/mocks/` owns the fixture dataset and simulated access behavior. See its
-  [guide](../../src/mocks/README.md) for accounts, scenarios, extension, and tests.
+- `src/modules/discovery/data/mocks/` owns the fixture dataset and simulated access behavior. See its
+  [guide](../../src/modules/discovery/data/mocks/README.md) for accounts, scenarios, extension, and tests.
 - Preview resource routes are review destinations, not a full reader or editor.
 
 ## Replacing mocks with a live service
@@ -92,7 +92,7 @@ They must never be used to protect real user data.
 
 ## Browser identity
 
-The shared `src/app/RouteMetadata/RouteMetadata.tsx` updates titles, descriptions, robots,
+The shared `src/app/router/RouteMetadata/RouteMetadata.tsx` updates titles, descriptions, robots,
 canonical links, and Open Graph metadata across discovery and legacy routes.
 Home uses the intended `https://foltivo.com/` URL. Search uses `/search` without
 query/cursor information and is not indexed. Preview, private, and unknown

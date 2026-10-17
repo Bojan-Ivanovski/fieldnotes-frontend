@@ -55,7 +55,7 @@ Use **Preview controls** in the banner to select anonymous, personal, or team
 access and to review loading and failure scenarios. These sample identities are
 separate from real sign-in and never authorize live account access.
 
-The reusable [mocks guide](src/mocks/README.md) explains fixtures and scenarios.
+The reusable [mocks guide](src/modules/discovery/data/mocks/README.md) explains fixtures and scenarios.
 [Discovery integration notes](docs/dev/discovery.md) describe the service boundary
 and the remaining live API requirements. Run `npm test` for behavior checks and
 `npm run test:e2e` for Chromium browser checks.

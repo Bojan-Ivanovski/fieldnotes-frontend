@@ -3,16 +3,16 @@ import test from 'node:test'
 import {
   createMockDiscoveryService,
   MOCK_PAGE_SIZE,
-} from '../src/mocks/discovery/client.ts'
-import { DiscoveryError } from '../src/features/discovery/types.ts'
+} from '../src/modules/discovery/data/mocks/client.ts'
+import { DiscoveryError } from '../src/modules/discovery/data/types.ts'
 import {
   readSearchState,
   searchUrl,
-} from '../src/features/discovery/search-state.ts'
+} from '../src/modules/discovery/lib/search-state.ts'
 import type {
   DiscoveryResource,
   SearchType,
-} from '../src/features/discovery/types.ts'
+} from '../src/modules/discovery/data/types.ts'
 
 function setup() {
   const runtime = createMockDiscoveryService({ delayMs: 0 })

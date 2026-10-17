@@ -13,7 +13,7 @@ that confirmed name.
 
 Use Foltivo in current UI copy, accessible names, page titles and maintained
 product prose. Use `foltivo-home` for the app-owned landing-page selector.
-`src/app/brand.ts` records the display name, intended origin and shared product
+`src/app/config/brand.ts` records the display name, intended origin and shared product
 positioning. Keep names of sample people, Libraries, Books and Folios, resource
 IDs, routes, and content/access behavior unchanged.
 

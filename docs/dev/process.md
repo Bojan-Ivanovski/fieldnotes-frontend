@@ -35,7 +35,9 @@ The release and integration direction is in [Folio versioning](folio-versioning.
 
 GitHub issue forms live in [`.github/ISSUE_TEMPLATE`](../../.github/ISSUE_TEMPLATE).
 
-Source organization follows [Component structure](component-structure.md).
+Source ownership follows [Source structure](source-structure.md), including module
+boundaries and promotion into shared code. File grouping follows
+[Component structure](component-structure.md).
 
 Product identity and intentional legacy identifiers are recorded in
 [Branding and compatibility](branding.md).
