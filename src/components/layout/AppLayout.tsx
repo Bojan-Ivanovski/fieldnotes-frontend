@@ -1,7 +1,7 @@
 import { ApplicationShell } from 'fieldnotes-ui'
 import { Outlet } from 'react-router'
-import { AppHeader } from './AppHeader.tsx'
-import { AppSidebar } from './AppSidebar.tsx'
+import { AppHeader } from './AppHeader/AppHeader.tsx'
+import { AppSidebar } from './AppSidebar/AppSidebar.tsx'
 
 export function AppLayout() {
   return (

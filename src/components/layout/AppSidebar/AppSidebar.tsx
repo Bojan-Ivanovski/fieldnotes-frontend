@@ -1,3 +1,4 @@
+import './AppSidebar.css'
 import { Heading, Sidebar, Text } from 'fieldnotes-ui'
 import { NavLink } from 'react-router'
 

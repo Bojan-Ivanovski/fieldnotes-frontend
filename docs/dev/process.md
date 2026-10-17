@@ -13,3 +13,5 @@ someone to resume work later.
 | [GitHub CLI](github-cli.md) | Repeatable `gh` commands and issue/PR handling |
 
 GitHub issue forms live in [`.github/ISSUE_TEMPLATE`](../../.github/ISSUE_TEMPLATE).
+
+Source organization follows [Component structure](component-structure.md).

@@ -1,0 +1,18 @@
+.home-page {
+  display: grid;
+  gap: 28px;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.home-page > div:first-child {
+  display: grid;
+  gap: 8px;
+}
+
+.home-page .fn-card {
+  display: grid;
+  gap: 12px;
+  max-width: 620px;
+  padding: 28px;
+}
