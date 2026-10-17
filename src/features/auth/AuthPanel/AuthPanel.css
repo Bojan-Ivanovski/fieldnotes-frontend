@@ -1,0 +1,23 @@
+.auth-panel {
+  display: grid;
+  gap: 22px;
+  width: 100%;
+}
+.auth-panel h1 {
+  font-family: var(--fn-font-heading);
+  font-weight: 400;
+  font-size: clamp(34px, 4vw, 49px);
+  line-height: 1.12;
+}
+.auth-panel > p {
+  color: var(--fn-muted-foreground);
+  font-size: 14px;
+}
+.auth-panel .auth-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  color: var(--fn-primary);
+}
+.auth-panel > a {
+  font-size: 13px;
+}

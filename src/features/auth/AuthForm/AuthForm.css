@@ -1,0 +1,11 @@
+.auth-form fieldset {
+  display: grid;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.auth-form fieldset > button {
+  margin-top: 4px;
+}

@@ -92,3 +92,20 @@ test database. Never clear production throttles to make tests pass. The optional
 existing-email mode only initializes a core account through reset; it does not
 remove previously enrolled factors. Live traces are disabled to avoid recording
 credentials or recovery material. Offline tests require no live service.
+
+## Authentication page ownership
+
+`AppRoutes` maps each authentication URL to a dedicated page under
+`src/features/auth`: SignInPage, SignUpPage, VerifyEmailPage,
+ForgotPasswordPage, ResetPasswordPage and MfaPage. Each page owns its form,
+endpoint calls, completion feedback and session redirects.
+
+AuthPanel and AuthForm share presentation and availability feedback;
+useFormAction shares only pending/error/message mechanics. EmailField and
+PasswordField supply reusable fields. No shared component selects a flow using
+a page flag. Existing AuthLayout owns branding, route-change focus and scrolling.
+
+Verification and reset pages use `email-link/useEmailLinkToken.ts`. It captures
+the fragment without side effects during initialization, then scrubs the URL in
+an effect while retaining the token in page-local state. Pages continue to use
+useAuth/mutate and safeReturnTo rather than creating independent session state.

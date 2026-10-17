@@ -1,0 +1,5 @@
+.sign-in-links {
+  display: grid;
+  gap: 15px;
+  font-size: 13px;
+}
