@@ -73,3 +73,22 @@ in `Component/` even without CSS. Keep shared clients and feature/domain-wide
 modules at their shared level. Follow the ownership guidance in
 [component structure](docs/dev/component-structure.md) and update imports and
 documentation references when moving files.
+
+## Module and shared ownership
+
+Follow [source structure](docs/dev/source-structure.md), selected in
+#61. Keep app/ minimal: composition, router/ and config/. Product pages, layouts,
+components and provider implementations belong in modules/ or genuinely shared
+code. Use pages/, layout/, components/, providers/, data/ and lib/ within modules.
+A module owns at most one layout directly in layout/, alongside its matching CSS
+and helpers used only by that layout. This is the module-layout exception to the
+component-named folder rule; shared layouts keep named folders.
+
+The internal section is workspace, with WorkspaceLayout rather than AppLayout.
+Share that layout when workspace and account both consume it. All responsibility
+groups can be promoted to shared/ when actual reuse between modules emerges;
+move owned CSS/TS companions, update consumers and remove original-module
+assumptions. Ownership is revisable, including moving code back when reuse ends.
+Shared code must not depend on app/ or module implementations. Preserve session
+and cache boundaries during relocation. The CSS checker supports the direct module layout exception and enforces the
+one-layout limit.

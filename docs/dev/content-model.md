@@ -74,25 +74,21 @@ Personal creation must not require organization membership or creating a Book.
 Book experiences must describe adding and removing Folio references without
 implying that either action changes access or deletes the Folio.
 
-The source foundation lives in `src/domain/content/types.ts` and
-`src/domain/content/references.ts`. Types describe the entities and their
-relationships; immutable helpers add and remove references and remove Books
-from a collection. Adding a reference requires the same Library and is
-idempotent. Removing a Book never operates on the Library's Folios.
+The earlier unused domain source and its dedicated scaffolding tests were removed
+in #60. This guide records the agreed product model; it does not imply that
+production content mutations or authorization are implemented.
 
-These helpers do not implement authorization. Callers must authorize operations
-and filter listings through the eventual resource policy. The types deliberately
-omit roles, publication fields, and persistence details pending those decisions.
-Directory parent references must remain within their Folio; validation of trees
-and document placement belongs to future content editing work.
+Future reference mutations must enforce same-Library membership and idempotent
+addition. Removing references or Books must preserve Folios. Callers must
+authorize operations and filter listings through the resource policy. Directory
+parents must remain within their Folio; tree and document placement validation
+belongs to content editing work. Implement these contracts and behavior checks
+alongside their actual feature consumers rather than maintaining unused types.
 
-Existing starter pages remain in place; Home page work follows separately in
-#3. Routes, storage schemas, provisioning, and permission controls require their
-own design before implementation.
-
-Run `npm test` for the domain behavior checks using Node's built-in TypeScript
-support (Node 22.18 or later). Run `npm run build` and `npm run lint` for the
-frontend checks.
+Active discovery contracts live in `src/modules/discovery/data/types.ts` and
+support the preview experience; they are not a persistence or authorization model.
+Routes, storage schemas, provisioning and permission controls require their own
+design before implementation.
 
 ## Direction requiring further design
 

@@ -18,6 +18,26 @@ const fileSet = new Set(files)
 const errors = []
 let styledComponents = 0
 
+function isModuleLayout(file) {
+  return /^src\/modules\/[^/]+\/layout\/[^/]+Layout\.tsx$/.test(file)
+}
+
+const moduleLayouts = new Map()
+for (const file of files.filter((name) =>
+  /^src\/modules\/[^/]+\/layout\/.+\.tsx$/.test(name),
+)) {
+  if (!isModuleLayout(file)) {
+    errors.push(
+      `${file}: place the single module layout directly in layout/ as <Name>Layout.tsx; place other components in components/`,
+    )
+  }
+  const directory = file.split(path.sep).slice(0, 4).join(path.sep)
+  if (moduleLayouts.has(directory)) {
+    errors.push(`${directory}: a module may own only one layout`)
+  }
+  moduleLayouts.set(directory, file)
+}
+
 for (const file of files.filter((name) => name.endsWith('.tsx'))) {
   const component = path.basename(file, '.tsx')
   const css = path.join(path.dirname(file), `${component}.css`)
@@ -61,7 +81,10 @@ for (const file of files.filter((name) => name.endsWith('.tsx'))) {
 
   if (!hasLocalStyling && !importsOwnCss) continue
   styledComponents++
-  if (path.basename(path.dirname(file)) !== component) {
+  if (
+    path.basename(path.dirname(file)) !== component &&
+    !isModuleLayout(file)
+  ) {
     errors.push(
       `${file}: place the styled component in a ${component}/ directory`,
     )
@@ -76,7 +99,10 @@ for (const file of files.filter(
 )) {
   const component = path.basename(file, '.css')
   const tsx = path.join(path.dirname(file), `${component}.tsx`)
-  if (!fileSet.has(tsx) || path.basename(path.dirname(file)) !== component) {
+  if (
+    !fileSet.has(tsx) ||
+    (path.basename(path.dirname(file)) !== component && !isModuleLayout(tsx))
+  ) {
     errors.push(
       `${file}: component styles must live beside ${component}/${component}.tsx`,
     )
