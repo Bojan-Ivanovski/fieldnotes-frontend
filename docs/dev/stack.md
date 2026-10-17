@@ -14,7 +14,8 @@ This document records the current frontend stack and the decisions made for the 
 
 The backend API will use **REST**. Requests can use the browser's built-in `fetch` API.
 
-**TanStack Query** manages discovery request state and cancellation. It is installed and currently calls the mock discovery adapter; live REST integration remains pending. Use it for server request state, caching, refetching, and mutations as other screens gain data. Keep API calls in a small service layer so route components do not need to construct endpoint URLs or handle HTTP details directly.
+**TanStack Query** manages discovery request state and cancellation. It is installed and currently calls the mock discovery adapter; content REST integration remains pending. Live authentication uses a separate
+shared session runtime and protected QueryClient above routes. Use it for server request state, caching, refetching, and mutations as other screens gain data. Keep API calls in a small service layer so route components do not need to construct endpoint URLs or handle HTTP details directly.
 
 ## Markdown files
 
@@ -28,3 +29,12 @@ npm run build
 npm run lint
 npm run preview
 ```
+
+## Live account authentication
+
+Go owns credentials and durable cookie sessions. The frontend uses its typed
+same-origin fetch/CSRF client, Web Locks for cross-tab cookie coordination and
+TanStack Query for protected account state. Authentication pages and settings
+reuse fieldnotes-ui; qrcode renders enrollment QR images locally. See
+[authentication](authentication.md) for setup, assurance states and boundaries.
+The UI tarball is tracked under vendor for reproducible npm installs.

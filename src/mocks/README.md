@@ -126,5 +126,7 @@ words that secretly trigger failures; scenarios should be explicit and reusable.
 The live replacement requirements are in
 [`docs/dev/discovery.md`](../../docs/dev/discovery.md). The mock response shape
 is a frontend integration boundary, not an agreed REST endpoint or a finished
-permissions design. Live API, real authentication, and real reader destinations
-remain outside this preview delivery.
+permissions design. Live content API and reader destinations remain outside this preview delivery.
+Real Go-backed authentication is integrated separately; see
+[authentication](../../docs/dev/authentication.md). Sample accounts never grant
+live account access.

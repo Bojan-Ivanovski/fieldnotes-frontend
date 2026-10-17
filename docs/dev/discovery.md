@@ -2,8 +2,9 @@
 
 Issue #3 uses the selected public landing page and dedicated Search route.
 The developer explicitly chose reusable mocks while the API is unavailable.
-This implementation delivers that preview; it does not provide live discovery
-or authentication.
+This implementation delivers sample discovery. Real account authentication is
+now integrated separately; see [authentication](authentication.md). Sample
+identity never grants access through the live Go session.
 
 The Home presentation follows an atlas-of-ideas concept: an orbital hero,
 floating Folio fragments, and a large interactive Write/Connect/Discover
@@ -47,10 +48,10 @@ Vite provides that fallback locally.
 
 ## Replacing mocks with a live service
 
-Before live integration, agree on REST endpoints, response validation, session
-resolution/change notifications, actual authentication/account URLs, and
-Book/Folio reader destinations. No endpoint or reader-path contract is selected
-by this preview.
+Before live content integration, agree on REST endpoints, response validation
+and Book/Folio reader destinations. Connect the content adapter to the existing
+live authentication runtime rather than creating a second identity boundary.
+No content endpoint or reader-path contract is selected by this preview.
 
 Implement the `DiscoveryService` interface through an adapter, keeping HTTP and
 response validation outside route components. Replace the mock composition and
