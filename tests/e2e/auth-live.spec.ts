@@ -299,6 +299,16 @@ test('live authentication: register, verify, manage account, reset password, and
     await expect(page.getByLabel('Display name')).toHaveValue(updatedName)
     await expect(page.getByText(/Authenticator: Enabled/)).toBeVisible()
 
+    // Losing the authenticator must still permit safe replacement with the
+    // account password and an unused saved recovery code, never email alone.
+    await page.getByRole('textbox', { name: 'Account password', exact: true }).fill(resetPassword)
+    await page.getByRole('button', { name: 'Use a recovery code for security changes', exact: true }).click()
+    await page.getByLabel('Recovery code for security changes', { exact: true }).fill(recoveryCodes[3]!)
+    await page.getByRole('button', { name: 'Remove authenticator', exact: true }).click()
+    await page.getByRole('button', { name: 'Confirm', exact: true }).click()
+    await clearPasswordFields(page)
+    await expect(page.getByText(/Authenticator: Not enabled/)).toBeVisible()
+
     await page.getByRole('button', { name: 'Sign out', exact: true }).click()
     await expect(page).toHaveURL(/\/sign-in/)
     await page.goto('/settings')

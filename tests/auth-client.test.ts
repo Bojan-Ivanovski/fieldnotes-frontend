@@ -159,3 +159,17 @@ test('session revocation shares the cookie coordinator because it can clear the 
   await client('/auth/sessions/current-id', { method: 'DELETE' })
   assert.equal(coordinated, 1)
 })
+
+
+test('account reads completed during a mutation are discarded before fresh state is published', async () => {
+  let committed = false
+  const clearPhases: boolean[] = []
+  const runtime = createAuthRuntime(createAuthClient(async url => {
+    if (String(url).endsWith('/auth/profile')) { committed = true; return json({ user: authenticated.user }) }
+    return json(authenticated)
+  }), () => clearPhases.push(committed))
+  await runtime.refresh()
+  clearPhases.length = 0
+  await runtime.mutate('/auth/profile', { name: 'Updated' }, 'PATCH')
+  assert.deepEqual(clearPhases, [false, true])
+})

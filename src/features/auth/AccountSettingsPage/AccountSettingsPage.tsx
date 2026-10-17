@@ -24,6 +24,7 @@ function AccountSettings() {
   const [setup, setSetup] = useState<{ secret: string; uri: string } | null>(null)
   const [recoveryCodes, setRecoveryCodes] = useState<string[]>([])
   const [qrCode, setQrCode] = useState('')
+  const [useRecovery, setUseRecovery] = useState(false)
   const [confirmation, setConfirmation] = useState<{ title: string; description: string; action: () => Promise<void> } | null>(null)
   const security = useQuery({ queryKey: ['account-security', user.id], queryFn: ({ signal }) => authRequest<Security>('/auth/security', { signal }), retry: false })
   const sessions = useQuery({ queryKey: ['account-sessions', user.id], queryFn: ({ signal }) => authRequest<{ sessions: AccountSession[] }>('/auth/sessions', { signal }), retry: false })
@@ -47,7 +48,7 @@ function AccountSettings() {
         {security.data?.totpEnabled && <Field label="Current authenticator code" controlId="password-code">{props => <Input {...props} name="passwordCode" autoComplete="one-time-code" inputMode="numeric" pattern="[0-9]{6}" required />}</Field>}
         <Button type="submit">Change password</Button></fieldset></form>
     </SettingsSection>
-    <SettingsSection id="security" title="Sign-in and security" description="Verify your account before changing security methods. Use a fresh authenticator code for each sensitive action.">
+    <SettingsSection id="security" title="Sign-in and security" description="Verify your account before changing security methods. Use a fresh authenticator code for each sensitive action, or an unused recovery code if your authenticator is lost.">
       {security.isPending ? <p role="status">Loading security settings…</p> : security.isError ? <Alert tone="destructive">Security settings could not be loaded. <Button onClick={() => { void security.refetch() }}>Retry security settings</Button></Alert> : <p>Authenticator: {security.data.totpEnabled ? 'Enabled' : 'Not enabled'} · Recovery codes remaining: {security.data.recoveryCodesRemaining}</p>}
       <form onSubmit={event => {
         const action = (event.nativeEvent as SubmitEvent).submitter?.getAttribute('value') ?? 'verify'
@@ -58,7 +59,7 @@ function AccountSettings() {
           else { await auth.mutate('/auth/reauthenticate', credentials); if (action === 'enroll') { const enrollment = await auth.mutate<{ secret: string; uri: string }>('/auth/totp/enroll'); setSetup(enrollment); setQrCode(await QRCode.toDataURL(enrollment.uri, { width: 240, margin: 2, errorCorrectionLevel: 'M' })); } else setMessage('Account verified. You can now manage your passkeys.') }
         })
       }}><fieldset disabled={pending || !security.data}><PasswordField label="Account password" name="securityPassword" />
-        {security.data?.totpEnabled && <Field label="Authenticator code for security changes" controlId="security-code">{props => <Input {...props} name="securityCode" autoComplete="one-time-code" inputMode="numeric" pattern="[0-9]{6}" maxLength={6} required />}</Field>}
+        {security.data?.totpEnabled && <><Field label={useRecovery ? 'Recovery code for security changes' : 'Authenticator code for security changes'} controlId="security-code">{props => <Input {...props} key={useRecovery ? 'recovery' : 'authenticator'} name="securityCode" autoComplete="one-time-code" inputMode={useRecovery ? 'text' : 'numeric'} pattern={useRecovery ? undefined : '[0-9]{6}'} maxLength={useRecovery ? 128 : 6} required />}</Field><Button type="button" variant="ghost" onClick={() => setUseRecovery(!useRecovery)}>{useRecovery ? 'Use an authenticator code for security changes' : 'Use a recovery code for security changes'}</Button></>}
         <div className="account-actions"><Button type="submit" value="verify" variant="outline">Verify account</Button>
           {auth.session?.methods.totp && (security.data?.totpEnabled ? <><Button type="submit" value="regenerate" variant="outline">Regenerate recovery codes</Button><Button type="submit" value="remove" variant="outline">Remove authenticator</Button></> : <Button type="submit" value="enroll">Set up authenticator</Button>)}
         </div></fieldset></form>

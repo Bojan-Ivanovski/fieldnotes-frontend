@@ -59,6 +59,9 @@ export function createAuthRuntime(request = authRequest, clearProtected = () => 
       if (epoch !== identityEpoch) throw new AuthError('Your account changed. Please retry from your current account.', 'session_changed', 409)
       return result
     } finally {
+      // Account reads may have completed with pre-mutation values while the
+      // write was pending. Discard them again before publishing fresh state.
+      if (epoch === identityEpoch) clearProtected()
       // A response from the previous actor cannot refresh or overwrite the new actor.
       if (changesIdentity) {
         identityInFlight = false

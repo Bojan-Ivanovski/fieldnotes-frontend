@@ -55,7 +55,10 @@ destinations are validated. Account settings provides profile changes, password
 changes, session revocation, TOTP setup with a locally generated QR code, one-time
 recovery-code display/download and passkey enrollment/removal. Sensitive actions
 require server-verified recent authentication. Use a fresh TOTP code for each
-operation; accepted steps cannot be replayed. Passkeys require browser support,
+operation; accepted steps cannot be replayed. If the authenticator is lost,
+security management accepts the account password and an unused saved recovery
+code through an explicit alternate entry mode. A backup remains single use and
+recovery revokes other sessions. Passkeys require browser support,
 a secure context and server-validated user verification.
 
 Public content discovery remains sample data until its API delivery. The preview
