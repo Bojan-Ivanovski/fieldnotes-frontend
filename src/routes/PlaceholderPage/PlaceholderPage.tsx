@@ -1,3 +1,4 @@
+import './PlaceholderPage.css'
 import { Card, Heading, Text } from 'fieldnotes-ui'
 
 interface PlaceholderPageProps {

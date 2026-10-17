@@ -1,17 +1,26 @@
 import { Route, Routes } from 'react-router'
+import { DiscoveryLayout } from '../features/discovery/DiscoveryLayout/DiscoveryLayout.tsx'
 import { AppLayout } from '../components/layout/AppLayout.tsx'
 import { FavoritesPage } from '../routes/FavoritesPage.tsx'
-import { HomePage } from '../routes/HomePage.tsx'
+import { HomePage } from '../routes/HomePage/HomePage.tsx'
 import { NewNotePage } from '../routes/NewNotePage.tsx'
 import { NotesPage } from '../routes/NotesPage.tsx'
 import { NotFoundPage } from '../routes/NotFoundPage.tsx'
 import { SettingsPage } from '../routes/SettingsPage.tsx'
+import { SearchPage } from '../routes/SearchPage/SearchPage.tsx'
+import { PreviewAccountPage } from '../routes/PreviewAccountPage/PreviewAccountPage.tsx'
+import { ResourcePreviewPage } from '../routes/ResourcePreviewPage/ResourcePreviewPage.tsx'
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route element={<AppLayout />}>
+      <Route element={<DiscoveryLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/preview/account" element={<PreviewAccountPage />} />
+        <Route path="/preview/:type/:id" element={<ResourcePreviewPage />} />
+      </Route>
+      <Route element={<AppLayout />}>
         <Route path="/notes" element={<NotesPage />} />
         <Route path="/notes/new" element={<NewNotePage />} />
         <Route path="/favorites" element={<FavoritesPage />} />

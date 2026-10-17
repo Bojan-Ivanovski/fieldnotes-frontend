@@ -1,6 +1,6 @@
 # Development stack
 
-This document records the current frontend stack and the decisions made for the Fieldnotes app. It separates packages already in the project from choices reserved for backend integration.
+This document records the current frontend stack and the decisions made for the Foltivo app. It separates packages already in the project from choices reserved for backend integration.
 
 ## Current frontend
 
@@ -14,7 +14,7 @@ This document records the current frontend stack and the decisions made for the 
 
 The backend API will use **REST**. Requests can use the browser's built-in `fetch` API.
 
-When screens begin loading and changing live API data, use **TanStack Query** to manage request state, caching, refetching, and mutations. It is a planned choice and is not installed yet. Keep API calls in a small service layer so route components do not need to construct endpoint URLs or handle HTTP details directly.
+**TanStack Query** manages discovery request state and cancellation. It is installed and currently calls the mock discovery adapter; live REST integration remains pending. Use it for server request state, caching, refetching, and mutations as other screens gain data. Keep API calls in a small service layer so route components do not need to construct endpoint URLs or handle HTTP details directly.
 
 ## Markdown files
 

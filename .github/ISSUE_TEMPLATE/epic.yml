@@ -1,6 +1,6 @@
 name: Epic
 description: Describe the objective for a release.
-title: "v0.1.0 -- Fieldnotes Frontend"
+title: "v0.1.0 -- Foltivo Frontend"
 body:
   - type: textarea
     id: objective
