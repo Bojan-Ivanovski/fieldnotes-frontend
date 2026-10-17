@@ -1,0 +1,20 @@
+.auth-layout { min-height: 100dvh; display: grid; grid-template-columns: minmax(300px, 46%) 1fr; background: var(--fn-background); color: var(--fn-foreground); font-family: var(--fn-font-sans); line-height: 1.6; }
+.auth-layout * { box-sizing: border-box; }
+.auth-layout a { color: var(--fn-primary); text-underline-offset: 4px; }
+.auth-layout :focus-visible { outline: 2px solid var(--fn-ring); outline-offset: 4px; }
+.auth-atlas { display: flex; flex-direction: column; justify-content: space-between; padding: 42px clamp(28px, 5vw, 80px); background: linear-gradient(150deg, #233320, #101c18); border-right: 1px solid var(--fn-border); overflow: hidden; }
+.auth-brand { font-family: var(--fn-font-heading); font-size: 38px; text-decoration: none; }
+.auth-brand span { font-size: 26px; margin-left: 12px; color: #e8e8d8; }
+.auth-atlas-copy { margin-block: 60px; }
+.auth-atlas-copy > p:first-child { letter-spacing: .18em; font-size: 10px; color: #b5ce9f; }
+.auth-atlas h2 { margin: 20px 0; font-family: var(--fn-font-heading); font-weight: 400; font-size: clamp(42px, 5.5vw, 75px); line-height: 1.06; color: #ece8d9; }
+.auth-atlas p { color: #acb6a5; }
+.auth-atlas > a:last-child { font-size: 13px; }
+.auth-orbits { margin-top: 45px; width: 230px; height: 180px; position: relative; display: grid; place-items: center; }
+.auth-orbits::before, .auth-orbits::after { content: ''; position: absolute; inset: 5px -25px; border: 1px solid #8fbd744a; border-radius: 50%; transform: rotate(-28deg); }
+.auth-orbits::after { transform: rotate(32deg); border-color: #b6a0d75c; inset: 23px -38px; }
+.auth-orbits span { display: grid; place-items: center; width: 87px; height: 100px; border: 1px solid #94b97e65; background: #283928; border-radius: 8px; font-family: var(--fn-font-heading); font-size: 52px; color: #c5e8a6; transform: rotate(-9deg); }
+.auth-main { display: flex; flex-direction: column; justify-content: center; width: 100%; max-width: 720px; padding: 64px clamp(25px, 7vw, 90px); outline: none; }
+.auth-main footer { margin-top: 48px; display: grid; gap: 12px; color: var(--fn-muted-foreground); font-size: 11px; }
+.auth-mobile-brand { display: none; }
+@media (max-width: 750px) { .auth-layout { display: block; } .auth-atlas { display: none; } .auth-main { min-height: 100dvh; margin: auto; padding: 28px 24px 45px; max-width: 510px; } .auth-mobile-brand { display: block; margin-bottom: 42px; font-family: var(--fn-font-heading); font-size: 27px; text-decoration: none; } }
