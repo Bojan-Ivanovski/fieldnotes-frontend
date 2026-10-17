@@ -105,7 +105,7 @@ useFormAction shares only pending/error/message mechanics. EmailField and
 PasswordField supply reusable fields. No shared component selects a flow using
 a page flag. Existing AuthLayout owns branding, route-change focus and scrolling.
 
-Verification and reset pages use `src/modules/auth/lib/email-link/useEmailLinkToken.ts`. It captures
+Verification and reset pages use `src/modules/auth/hooks/useEmailLinkToken.ts`. It captures
 the fragment without side effects during initialization, then scrubs the URL in
 an effect while retaining the token in page-local state. Pages continue to use
 useAuth/mutate and safeReturnTo rather than creating independent session state.
