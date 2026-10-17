@@ -1,0 +1,12 @@
+.resource-preview-page { max-width: 800px; margin: auto; padding: 55px 0 80px; }
+.resource-preview-page > a:first-child { display: inline-block; margin-bottom: 26px; font-size: 12px; }
+.resource-preview-page > h1 { font-size: clamp(34px, 4vw, 48px); margin: 18px 0; letter-spacing: -1px; }
+.resource-preview-page > p { margin-bottom: 16px; font-size: 14px; }
+.resource-preview-section { padding: 28px; margin-top: 28px; border: 1px solid var(--fn-border); border-radius: 8px; background: var(--fn-card); display: grid; gap: 18px; }
+.resource-preview-section h2 { font-size: 26px; }
+.resource-preview-section p, .resource-preview-section label { font-size: 13px; }
+.resource-preview-section > a { justify-self: start; }
+@media (max-width: 650px) {
+  .resource-preview-page { padding-top: 35px; }
+  .resource-preview-section { padding: 22px; }
+}
