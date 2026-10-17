@@ -47,7 +47,11 @@ export interface DiscoveryService {
   getSession: () => DiscoverySession
   subscribeSession: (listener: () => void) => () => void
   search: (request: SearchRequest, signal: AbortSignal) => Promise<SearchPage>
-  getResource: (type: ResourceType, id: string, signal: AbortSignal) => Promise<ResourcePreview>
+  getResource: (
+    type: ResourceType,
+    id: string,
+    signal: AbortSignal,
+  ) => Promise<ResourcePreview>
 }
 
 export class DiscoveryError extends Error {

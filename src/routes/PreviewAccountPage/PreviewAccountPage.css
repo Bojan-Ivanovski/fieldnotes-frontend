@@ -1,14 +1,60 @@
-.preview-account-page { max-width: 800px; margin: auto; padding: 55px 0 80px; }
-.preview-account-page > a:first-child { display: inline-block; margin-bottom: 26px; font-size: 12px; }
-.preview-account-page > h1 { font-size: clamp(34px, 4vw, 48px); margin: 18px 0; letter-spacing: -1px; }
-.preview-account-page > p { margin-bottom: 16px; font-size: 14px; }
-.preview-account-section { padding: 28px; margin-top: 28px; border: 1px solid var(--fn-border); border-radius: 8px; background: var(--fn-card); display: grid; gap: 18px; }
-.preview-account-section h2 { font-size: 26px; }
-.preview-account-section p, .preview-account-section label { font-size: 13px; }
-.preview-account-accounts { display: flex; gap: 10px; flex-wrap: wrap; }
-.preview-account-section select { color: var(--fn-foreground); background: var(--fn-input-background); border: 1px solid var(--fn-input); border-radius: 5px; padding: 12px; font: inherit; max-width: 100%; }
-.preview-account-section > a { justify-self: start; }
+.preview-account-page {
+  max-width: 800px;
+  margin: auto;
+  padding: 55px 0 80px;
+}
+.preview-account-page > a:first-child {
+  display: inline-block;
+  margin-bottom: 26px;
+  font-size: 12px;
+}
+.preview-account-page > h1 {
+  font-size: clamp(34px, 4vw, 48px);
+  margin: 18px 0;
+  letter-spacing: -1px;
+}
+.preview-account-page > p {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+.preview-account-section {
+  padding: 28px;
+  margin-top: 28px;
+  border: 1px solid var(--fn-border);
+  border-radius: 8px;
+  background: var(--fn-card);
+  display: grid;
+  gap: 18px;
+}
+.preview-account-section h2 {
+  font-size: 26px;
+}
+.preview-account-section p,
+.preview-account-section label {
+  font-size: 13px;
+}
+.preview-account-accounts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.preview-account-section select {
+  color: var(--fn-foreground);
+  background: var(--fn-input-background);
+  border: 1px solid var(--fn-input);
+  border-radius: 5px;
+  padding: 12px;
+  font: inherit;
+  max-width: 100%;
+}
+.preview-account-section > a {
+  justify-self: start;
+}
 @media (max-width: 650px) {
-  .preview-account-page { padding-top: 35px; }
-  .preview-account-section { padding: 22px; }
+  .preview-account-page {
+    padding-top: 35px;
+  }
+  .preview-account-section {
+    padding: 22px;
+  }
 }

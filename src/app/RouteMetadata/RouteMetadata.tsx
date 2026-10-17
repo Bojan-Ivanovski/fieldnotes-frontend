@@ -1,10 +1,16 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router'
-import { PRODUCT_NAME } from './brand.ts'
+import { PRODUCT_NAME } from '../brand.ts'
 import { getRouteMetadata } from './route-metadata.ts'
 
-function updateMeta(attribute: 'name' | 'property', name: string, content: string | null) {
-  let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${name}"]`)
+function updateMeta(
+  attribute: 'name' | 'property',
+  name: string,
+  content: string | null,
+) {
+  let element = document.head.querySelector<HTMLMetaElement>(
+    `meta[${attribute}="${name}"]`,
+  )
   if (content === null) {
     element?.remove()
     return
@@ -30,7 +36,9 @@ export function RouteMetadata() {
     updateMeta('property', 'og:description', metadata.description)
     updateMeta('property', 'og:url', metadata.canonical)
 
-    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    let canonical = document.head.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]',
+    )
     if (metadata.canonical === null) {
       canonical?.remove()
     } else {

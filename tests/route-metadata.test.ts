@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { getRouteMetadata } from '../src/app/route-metadata.ts'
+import { getRouteMetadata } from '../src/app/RouteMetadata/route-metadata.ts'
 
 // Check public URL boundaries, rather than duplicating every display string.
 test('public pages use the intended Foltivo origin and distinct titles', () => {
@@ -16,8 +16,16 @@ test('public pages use the intended Foltivo origin and distinct titles', () => {
 })
 
 test('private, preview, and missing routes do not advertise public share URLs', () => {
-  for (const route of ['/notes', '/notes/new', '/favorites', '/settings', '/preview/account',
-    '/preview/folio/personal-notes', '/preview/book/studio-handbook', '/missing']) {
+  for (const route of [
+    '/notes',
+    '/notes/new',
+    '/favorites',
+    '/settings',
+    '/preview/account',
+    '/preview/folio/personal-notes',
+    '/preview/book/studio-handbook',
+    '/missing',
+  ]) {
     const metadata = getRouteMetadata(route)
     assert.equal(metadata.canonical, null, route)
     assert.equal(metadata.robots, 'noindex, nofollow', route)

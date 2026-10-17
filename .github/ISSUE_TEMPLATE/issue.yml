@@ -5,7 +5,7 @@ body:
     attributes:
       value: >-
         Keep one issue to one reviewable outcome. Fill in the request and scope now;
-        leave analysis and implementation plan for refinement before work begins.
+        leave Analysis, Solution, and Details pending until their stage of the work.
 
   - type: textarea
     id: summary
@@ -36,31 +36,19 @@ body:
     id: analysis
     attributes:
       label: Analysis
-      description: Fill during investigation, before implementation. Capture current code behavior, constraints, compatibility, and options where relevant.
+      description: Codex discusses solutions based on findings. Link each solution as a separate Markdown attachment; the developer chooses.
       value: _Not analyzed yet._
 
   - type: textarea
-    id: plan
+    id: solution
     attributes:
-      label: Implementation plan
-      description: Fill after the approach is agreed. Keep it short; link a design note for substantial detail.
-      value: _Not agreed yet._
+      label: Solution
+      description: Fill after the developer chooses. Summarize what changes, affected areas, and why this solution was chosen. Keep the detail in the attachment tagged [Selected Solution] under Analysis.
+      value: _Not selected yet._
 
   - type: textarea
     id: details
     attributes:
-      label: References and details
-      description: Add relevant issue links, code findings, screenshots, or other supporting context as the work progresses.
-      placeholder: None yet.
-
-  - type: textarea
-    id: closeout
-    attributes:
-      label: Closeout
-      description: Complete before closing. Record what shipped, how it was verified, and any follow-up work.
-      value: |
-        **Delivered:** _Complete when closing._
-
-        **Verification:** _Commands and/or manual checks performed._
-
-        **Follow-up:** _Links to follow-up issues, or “None”._
+      label: Details
+      description: Fill after investigation. Link the code findings attachment and summarize the two to four facts the reader must not miss.
+      value: _Not investigated yet._

@@ -1,0 +1,42 @@
+.auth-page {
+  display: grid;
+  gap: 22px;
+  width: 100%;
+}
+.auth-page h1 {
+  font-family: var(--fn-font-heading);
+  font-weight: 400;
+  font-size: clamp(34px, 4vw, 49px);
+  line-height: 1.12;
+}
+.auth-page > p {
+  color: var(--fn-muted-foreground);
+  font-size: 14px;
+}
+.auth-page .auth-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  color: var(--fn-primary);
+}
+.auth-page fieldset {
+  display: grid;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.auth-page fieldset > button {
+  margin-top: 4px;
+}
+.auth-page .auth-links {
+  display: grid;
+  gap: 15px;
+  font-size: 13px;
+}
+.auth-page > a {
+  font-size: 13px;
+}
+.auth-page .auth-help {
+  font-size: 12px;
+}

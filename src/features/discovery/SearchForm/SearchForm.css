@@ -1,4 +1,22 @@
-.discovery-search-form { display: flex; gap: 8px; align-items: stretch; min-width: 0; }
-.discovery-search-form .fn-search-field { flex: 1; min-width: 0; background: var(--fn-input-background); border-radius: 7px; }
-.discovery-search-form .fn-search-field input { min-width: 0; padding-block: 17px; font-size: 14px; }
-.discovery-search-form > .fn-button { gap: 20px; font-size: 14px; flex-shrink: 0; }
+.discovery-search-form {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  min-width: 0;
+}
+.discovery-search-form .fn-search-field {
+  flex: 1;
+  min-width: 0;
+  background: var(--fn-input-background);
+  border-radius: 7px;
+}
+.discovery-search-form .fn-search-field input {
+  min-width: 0;
+  padding-block: 17px;
+  font-size: 14px;
+}
+.discovery-search-form > .fn-button {
+  gap: 20px;
+  font-size: 14px;
+  flex-shrink: 0;
+}

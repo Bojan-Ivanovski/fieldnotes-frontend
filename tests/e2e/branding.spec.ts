@@ -2,36 +2,59 @@ import { expect, test } from '@playwright/test'
 import type { Page } from '@playwright/test'
 
 async function expectPublicUrl(page: Page, url: string) {
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', url)
-  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', url)
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    url,
+  )
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+    'content',
+    url,
+  )
 }
 
 async function expectNoPublicUrl(page: Page) {
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0)
   await expect(page.locator('meta[property="og:url"]')).toHaveCount(0)
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    'content',
+    'noindex, nofollow',
+  )
 }
 
-test('Foltivo branding, working UI theme, and the new favicon are present on Home', async ({ page }) => {
+test('Foltivo branding, working UI theme, and the new favicon are present on Home', async ({
+  page,
+}) => {
   await page.goto('/')
   await expect(page).toHaveTitle('Foltivo — A home for your thoughts')
-  await expect(page.getByRole('link', { name: 'Foltivo home', exact: true })).toBeVisible()
+  await expect(
+    page.getByRole('link', { name: 'Foltivo home', exact: true }),
+  ).toBeVisible()
   await expect(page.getByText('Foltivo preview', { exact: true })).toBeVisible()
-  await expect(page.getByRole('region', { name: 'Interactive Foltivo illustration' })).toBeVisible()
+  await expect(
+    page.getByRole('region', { name: 'Interactive Foltivo illustration' }),
+  ).toBeVisible()
   await expect(page.locator('.foltivo-home')).toBeVisible()
   await expect(page.locator('.fieldnotes-home')).toHaveCount(0)
   await expect(page.locator('[data-fn-theme="fieldnotes-dark"]')).toBeVisible()
   await expect(page.locator('body')).not.toContainText('Fieldnotes')
-  await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute('content', 'Foltivo')
+  await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute(
+    'content',
+    'Foltivo',
+  )
   await expectPublicUrl(page, 'https://foltivo.com/')
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    'content',
+    'index, follow',
+  )
   const favicon = await page.request.get('/favicon.svg')
   expect(favicon.ok()).toBe(true)
   expect(favicon.headers()['content-type']).toContain('image/svg+xml')
   expect(await favicon.text()).toContain('<title>Foltivo</title>')
 })
 
-test('Search metadata omits query state and is removed on preview navigation and restored by history', async ({ page }) => {
+test('Search metadata omits query state and is removed on preview navigation and restored by history', async ({
+  page,
+}) => {
   await page.goto('/')
   await page.getByRole('link', { name: 'Explore', exact: true }).click()
   await expect(page).toHaveTitle('Search Books and Folios — Foltivo')
@@ -40,26 +63,43 @@ test('Search metadata omits query state and is removed on preview navigation and
   await expect(page).toHaveURL(/q=My\+unfinished/)
   await expect(page).toHaveTitle('Search Books and Folios — Foltivo')
   await expectPublicUrl(page, 'https://foltivo.com/search')
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
-  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Search Books and Folios — Foltivo')
-  await page.getByRole('link', { name: 'Sign in', exact: true }).click()
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    'content',
+    'noindex, follow',
+  )
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+    'content',
+    'Search Books and Folios — Foltivo',
+  )
+  await page.getByRole('link', { name: 'Preview controls' }).click()
   await expect(page).toHaveTitle('Account preview — Foltivo')
   await expectNoPublicUrl(page)
   await page.getByRole('button', { name: 'Continue as Maya' }).click()
-  await expect(page.getByRole('link', { name: 'My unfinished notes', exact: true })).toBeVisible()
+  await expect(
+    page.getByRole('link', { name: 'My unfinished notes', exact: true }),
+  ).toBeVisible()
   await expectPublicUrl(page, 'https://foltivo.com/search')
-  await page.getByRole('link', { name: 'My unfinished notes', exact: true }).click()
+  await page
+    .getByRole('link', { name: 'My unfinished notes', exact: true })
+    .click()
   await expect(page).toHaveTitle('Content preview — Foltivo')
   await expectNoPublicUrl(page)
-  await expect(page.locator('meta[property="og:title"]')).not.toHaveAttribute('content', /unfinished/)
+  await expect(page.locator('meta[property="og:title"]')).not.toHaveAttribute(
+    'content',
+    /unfinished/,
+  )
   await page.goBack()
   await expect(page).toHaveTitle('Search Books and Folios — Foltivo')
   await expectPublicUrl(page, 'https://foltivo.com/search')
 })
 
-test('legacy routes, direct preview requests, and unknown routes retain safe Foltivo metadata', async ({ page }) => {
+test('legacy routes, direct preview requests, and unknown routes retain safe Foltivo metadata', async ({
+  page,
+}) => {
   await page.goto('/notes')
-  await expect(page.getByRole('heading', { name: 'Foltivo', exact: true })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: 'Foltivo', exact: true }),
+  ).toBeVisible()
   await expect(page).toHaveTitle('All notes — Foltivo')
   await expectNoPublicUrl(page)
   await page.getByRole('link', { name: 'Home', exact: true }).click()
@@ -75,7 +115,9 @@ test('legacy routes, direct preview requests, and unknown routes retain safe Fol
   await expectNoPublicUrl(page)
 })
 
-test('the static SPA shell does not advertise preview routes as the public homepage before JavaScript', async ({ browser }) => {
+test('the static SPA shell does not advertise preview routes as the public homepage before JavaScript', async ({
+  browser,
+}) => {
   const context = await browser.newContext({ javaScriptEnabled: false })
   const page = await context.newPage()
   await page.goto('/preview/folio/personal-notes')

@@ -96,6 +96,9 @@ frontend checks.
 
 ## Direction requiring further design
 
+[Folio versioning](folio-versioning.md) records the selected release and Book-pin
+direction from #4 and its boundary with two-way Git synchronization in #5.
+
 Public/private visibility, inherited restrictions inside Folios, raw Markdown
 representations, and authorized agent access remain product requirements. The
 exact role matrix, descendant publication behavior, routes, persistence, and

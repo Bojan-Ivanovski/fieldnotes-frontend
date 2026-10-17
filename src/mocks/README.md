@@ -19,7 +19,7 @@ mocks/
 
 The UI consumes `DiscoveryService` from `features/discovery/types.ts` rather
 than importing resource fixtures. The composition point is
-`features/discovery/DiscoveryProvider.tsx`. Preview controls are deliberately
+`features/discovery/DiscoveryProvider/DiscoveryProvider.tsx`. Preview controls are deliberately
 separate from the service interface so future live services do not need to
 implement sample-account switching or failure simulation.
 
@@ -126,5 +126,7 @@ words that secretly trigger failures; scenarios should be explicit and reusable.
 The live replacement requirements are in
 [`docs/dev/discovery.md`](../../docs/dev/discovery.md). The mock response shape
 is a frontend integration boundary, not an agreed REST endpoint or a finished
-permissions design. Live API, real authentication, and real reader destinations
-remain outside this preview delivery.
+permissions design. Live content API and reader destinations remain outside this preview delivery.
+Real Go-backed authentication is integrated separately; see
+[authentication](../../docs/dev/authentication.md). Sample accounts never grant
+live account access.

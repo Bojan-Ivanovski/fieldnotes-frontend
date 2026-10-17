@@ -11,8 +11,15 @@ export function readSearchState(params: URLSearchParams): SearchRequest {
   }
 }
 
-export function searchUrl(query: string, type: SearchType = 'all', cursor: string | null = null): string {
-  const params = new URLSearchParams({ q: query.trim().slice(0, MAX_QUERY_LENGTH), type })
+export function searchUrl(
+  query: string,
+  type: SearchType = 'all',
+  cursor: string | null = null,
+): string {
+  const params = new URLSearchParams({
+    q: query.trim().slice(0, MAX_QUERY_LENGTH),
+    type,
+  })
   if (cursor) params.set('cursor', cursor)
   return `/search?${params}`
 }
