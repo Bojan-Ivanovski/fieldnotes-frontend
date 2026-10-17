@@ -1,6 +1,12 @@
-# Fieldnotes repository instructions
+# Foltivo repository instructions
 
 Read [the development process](docs/dev/process.md) before working in this repository.
+
+## Repository identity
+
+Use `gh` with `--repo Bojan-Ivanovski/foltivo-frontend`. Future release epic
+titles use `<version> -- Foltivo Frontend`; preserve the agreed development
+process and commit conventions.
 
 ## Component styles
 

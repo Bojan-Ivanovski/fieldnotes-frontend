@@ -1,4 +1,4 @@
-# Fieldnotes mocks
+# Foltivo mocks
 
 Reusable, deterministic substitutes for services that are not available yet.
 The app currently uses these mocks in both development and production builds,

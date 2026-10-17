@@ -1,6 +1,6 @@
 # Development stack
 
-This document records the current frontend stack and the decisions made for the Fieldnotes app. It separates packages already in the project from choices reserved for backend integration.
+This document records the current frontend stack and the decisions made for the Foltivo app. It separates packages already in the project from choices reserved for backend integration.
 
 ## Current frontend
 
