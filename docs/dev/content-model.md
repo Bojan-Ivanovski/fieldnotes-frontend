@@ -1,6 +1,6 @@
-# Fieldnotes content model
+# Foltivo content model
 
-Agreed in [issue #2](https://github.com/Bojan-Ivanovski/fieldnotes-frontend/issues/2).
+Agreed in [issue #2](https://github.com/Bojan-Ivanovski/foltivo-frontend/issues/2).
 Library is the top-level content container, with personal
 and organizational ownership.
 

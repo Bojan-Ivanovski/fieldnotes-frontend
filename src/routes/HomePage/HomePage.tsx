@@ -9,7 +9,7 @@ import { searchUrl } from '../../features/discovery/search-state.ts'
 export function HomePage() {
   const { session } = useDiscovery()
   return (
-    <div className="fieldnotes-home">
+    <div className="foltivo-home">
       <section className="atlas-hero" aria-labelledby="home-heading">
         <IdeaAtlas />
         <div className="atlas-hero-content">

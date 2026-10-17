@@ -29,7 +29,7 @@ export function ProductDemo() {
   }
 
   return (
-    <section className="product-stage" aria-label="Interactive Fieldnotes illustration">
+    <section className="product-stage" aria-label="Interactive Foltivo illustration">
       <div className="product-stage-tabs" role="tablist" aria-label="Explore the content model">
         {views.map((view, index) => (
           <button
@@ -47,7 +47,7 @@ export function ProductDemo() {
         ))}
       </div>
       <div className="product-window">
-        <div className="product-window-bar"><span className="product-window-dots" aria-hidden="true"><i /><i /><i /></span><span>fieldnotes / your little corner of the internet</span><span className="product-demo-label">Interactive illustration</span></div>
+        <div className="product-window-bar"><span className="product-window-dots" aria-hidden="true"><i /><i /><i /></span><span>foltivo / your little corner of the internet</span><span className="product-demo-label">Interactive illustration</span></div>
         {views.map((view) => (
           <div key={view.id} id={`demo-panel-${view.id}`} role="tabpanel" aria-labelledby={`demo-tab-${view.id}`} tabIndex={0} hidden={active !== view.id} className="product-demo-panel">
             <aside className="product-demo-sidebar" aria-label="Illustrative Library structure">

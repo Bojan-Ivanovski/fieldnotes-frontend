@@ -35,4 +35,4 @@ to determine ownership of individual CSS selectors. Keep ownership clear during
 review as well as satisfying the structural check.
 
 This rule was requested and selected by the developer in
-[issue #10](https://github.com/Bojan-Ivanovski/fieldnotes-frontend/issues/10).
+[issue #10](https://github.com/Bojan-Ivanovski/foltivo-frontend/issues/10).

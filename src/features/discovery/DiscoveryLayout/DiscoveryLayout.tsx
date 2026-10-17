@@ -12,7 +12,6 @@ function DiscoveryShell() {
   const accountLink = `/preview/account?returnTo=${encodeURIComponent(location.pathname + location.search)}`
 
   useEffect(() => {
-    document.title = `${location.pathname === '/' ? 'A home for your thoughts' : location.pathname === '/search' ? 'Search Books and Folios' : 'Preview'} — Fieldnotes`
     if (location.hash) {
       document.getElementById(location.hash.slice(1))?.scrollIntoView()
     } else if (previousPath.current !== location.pathname) {
@@ -27,14 +26,14 @@ function DiscoveryShell() {
       <a className="discovery-skip" href="#discovery-main">Skip to content</a>
       <div className="discovery-preview-banner">
         <span className="discovery-preview-dot" aria-hidden="true" />
-        <strong>Fieldnotes preview</strong>
+        <strong>Foltivo preview</strong>
         <span>Sample content & accounts. Changes aren’t saved.</span>
         <Link to={accountLink}>Preview controls <span aria-hidden="true">↗</span></Link>
       </div>
       <header className="discovery-header">
-        <Link to="/" className="discovery-brand" aria-label="Fieldnotes home">
+        <Link to="/" className="discovery-brand" aria-label="Foltivo home">
           <span className="discovery-brand-mark" aria-hidden="true">f.</span>
-          <span>Fieldnotes</span>
+          <span>Foltivo</span>
         </Link>
         <nav aria-label="Discovery" className="discovery-navigation">
           <NavLink to="/search">Explore</NavLink>
@@ -55,7 +54,7 @@ function DiscoveryShell() {
         <Outlet />
       </main>
       <footer className="discovery-footer">
-        <Link to="/" className="discovery-brand">Fieldnotes<span aria-hidden="true">.</span></Link>
+        <Link to="/" className="discovery-brand">Foltivo<span aria-hidden="true">.</span></Link>
         <p>A home for your thoughts. A little room to grow.</p>
         <Link to="/search">Explore Books & Folios <span aria-hidden="true">↗</span></Link>
       </footer>

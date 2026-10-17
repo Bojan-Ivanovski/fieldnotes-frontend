@@ -1,16 +1,24 @@
-# Fieldnotes
+# Foltivo
 
 **A home for your thoughts.**
 
-Fieldnotes is a Markdown-first workspace for writing and organizing knowledge
+Foltivo is a Markdown-first workspace for writing and organizing knowledge
 alongside projects, with thoughtful AI assistance built around your own material.
 Documents remain portable Markdown, and assistance should stay transparent and
 under the writer's control.
 
-This repository is a fresh starting point for refining the product. The existing
-[Fieldnotes project](https://github.com/Bojan-Ivanovski/fieldnotes) is reference
+This repository is a fresh starting point for refining Foltivo. The earlier
+[Fieldnotes project](https://github.com/Bojan-Ivanovski/fieldnotes) is historical reference
 material for product direction and prior implementation, not a requirement to
 carry every earlier design or feature forward.
+
+The intended public website is **https://foltivo.com**. This name and domain
+decision does not mean deployment, DNS, TLS, or sign-in providers are configured.
+The current implementation is a local, mock-backed frontend preview.
+
+The UI package still uses its original `fieldnotes-ui` identifiers; see the
+[branding and compatibility guide](docs/dev/branding.md). The GitHub repository is now `Bojan-Ivanovski/foltivo-frontend`; the historical
+predecessor project retains its original name.
 
 ## Development
 

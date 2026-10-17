@@ -88,3 +88,14 @@ The adapter must satisfy these requirements:
 This preview's fixture access lists and identity buttons are demonstrations.
 All sample data is bundled into the frontend, including sample private content.
 They must never be used to protect real user data.
+
+## Browser identity
+
+The shared `src/app/RouteMetadata.tsx` updates titles, descriptions, robots,
+canonical links, and Open Graph metadata across discovery and legacy routes.
+Home uses the intended `https://foltivo.com/` URL. Search uses `/search` without
+query/cursor information and is not indexed. Preview, private, and unknown
+routes have no public canonical or Open Graph URL. The static HTML shell starts
+without a canonical URL and with indexing disabled, so a direct preview request
+is not advertised as the public homepage before routing runs. These directives
+are presentation metadata and do not provide access control.

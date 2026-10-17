@@ -8,7 +8,7 @@ export function AppSidebar() {
       label="Main navigation"
       header={
         <div className="app-brand">
-          <Heading>Fieldnotes</Heading>
+          <Heading>Foltivo</Heading>
           <Text as="p" tone="muted">Your quiet corner of the web</Text>
         </div>
       }

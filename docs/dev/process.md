@@ -1,7 +1,7 @@
 # GitHub development process
 
 This process explains how work is proposed, refined, implemented, and closed in
-the Fieldnotes repository using GitHub Issues and pull requests. It is intended
+the Foltivo repository using GitHub Issues and pull requests. It is intended
 to keep each issue focused, make decisions visible, and leave enough context for
 someone to resume work later.
 
@@ -15,3 +15,6 @@ someone to resume work later.
 GitHub issue forms live in [`.github/ISSUE_TEMPLATE`](../../.github/ISSUE_TEMPLATE).
 
 Source organization follows [Component structure](component-structure.md).
+
+Product identity and intentional legacy identifiers are recorded in
+[Branding and compatibility](branding.md).

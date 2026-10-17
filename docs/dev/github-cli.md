@@ -5,41 +5,45 @@ repository explicitly when running from a checkout that may have another
 `origin`:
 
 ```sh
---repo Bojan-Ivanovski/fieldnotes-frontend
+--repo Bojan-Ivanovski/foltivo-frontend
 ```
 
 The GitHub issue body is the durable record. Before editing it, read the current
 issue; when replacing the body, provide the complete updated text so existing
 sections are preserved.
 
+The developer renamed the repository to `Bojan-Ivanovski/foltivo-frontend`.
+Use this identifier in every `gh --repo` argument and maintained GitHub URL.
+The local origin uses `git@github.com:Bojan-Ivanovski/foltivo-frontend.git`.
+
 ## Issues
 
 ```sh
 # List open issues
-gh issue list --repo Bojan-Ivanovski/fieldnotes-frontend
+gh issue list --repo Bojan-Ivanovski/foltivo-frontend
 
 # Read the issue before changing it
-gh issue view 12 --repo Bojan-Ivanovski/fieldnotes-frontend
+gh issue view 12 --repo Bojan-Ivanovski/foltivo-frontend
 
 # Create from a prepared issue body
 gh issue create \
-  --repo Bojan-Ivanovski/fieldnotes-frontend \
+  --repo Bojan-Ivanovski/foltivo-frontend \
   --title "<focused outcome>" \
   --body-file /path/to/issue.md
 
 # Replace title/body or add an existing label
 gh issue edit 12 \
-  --repo Bojan-Ivanovski/fieldnotes-frontend \
+  --repo Bojan-Ivanovski/foltivo-frontend \
   --title "<updated title>" \
   --body-file /path/to/complete-updated-issue.md
 
 # Add a short decision or handoff
 gh issue comment 12 \
-  --repo Bojan-Ivanovski/fieldnotes-frontend \
+  --repo Bojan-Ivanovski/foltivo-frontend \
   --body "<short update and links>"
 
 # Close only after completing the issue's closeout section
-gh issue close 12 --repo Bojan-Ivanovski/fieldnotes-frontend
+gh issue close 12 --repo Bojan-Ivanovski/foltivo-frontend
 ```
 
 Use the repository's GitHub issue forms when creating a work item, epic, or
@@ -60,13 +64,13 @@ labels when changing metadata. The intended label groups and lifecycle are in
 ```sh
 # Open a PR and link the issue so GitHub can close it on merge
 gh pr create \
-  --repo Bojan-Ivanovski/fieldnotes-frontend \
+  --repo Bojan-Ivanovski/foltivo-frontend \
   --title "<change>" \
   --body-file /path/to/pr-description.md
 
 # Inspect checks and review state before merge
-gh pr view <number> --repo Bojan-Ivanovski/fieldnotes-frontend
-gh pr checks <number> --repo Bojan-Ivanovski/fieldnotes-frontend
+gh pr view <number> --repo Bojan-Ivanovski/foltivo-frontend
+gh pr checks <number> --repo Bojan-Ivanovski/foltivo-frontend
 ```
 
 The PR body should include `Closes #<issue-number>` when merging it completes
