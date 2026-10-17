@@ -47,6 +47,7 @@ modules/discovery/
   components/
   providers/
   data/
+  hooks/
   lib/
 ```
 
@@ -57,7 +58,8 @@ modules/discovery/
 | components/ | Reusable UI within the module, including its local styles/helpers. |
 | providers/ | Module-owned providers, contexts and associated runtime implementation. |
 | data/ | Module contracts, API adapters, service types, fixtures and mock adapters as needed. |
-| lib/ | Module-wide nonvisual logic and utilities with no narrower owner. |
+| hooks/ | Module-wide React hooks, named useSomething.ts. |
+| lib/ | Non-React utilities and logic with no narrower owner. |
 
 Preserve empty module responsibility directories with a `.gitkeep` file so Git
 retains the agreed structure. Remove the marker once real files occupy that
@@ -91,6 +93,7 @@ shared/
   components/
   providers/
   data/
+  hooks/
   lib/
 ```
 
@@ -156,3 +159,33 @@ Use #59's dedicated auth pages as the migration baseline. The unused domain
 scaffolding and its dedicated tests were removed in #60.
 Keep the agreed product model in content-model.md and introduce production
 contracts with their actual consumers; do not recreate unused shared scaffolding.
+
+## Naming and concern folders
+
+| Kind | Convention | Example |
+| --- | --- | --- |
+| Modules and responsibility groups | lowercase, kebab-case for multiple words | auth/, audit-log/, hooks/ |
+| Component folders and TSX files | PascalCase, matching the component | SignInPage/SignInPage.tsx |
+| Component stylesheets | Match the TSX name | SignInPage.css |
+| React hooks | camelCase beginning with use | useEmailLinkToken.ts |
+| Other TypeScript files | kebab-case describing their responsibility | route-metadata.ts, search-state.ts |
+| Unit tests | Subject name with .test.ts | route-metadata.test.ts |
+| Browser tests | Scenario name with .spec.ts | auth-pages.spec.ts |
+
+Use module hooks/ for hooks consumed across that module. A hook exclusive to a
+component, provider or layout stays with its owner. AuthForm/useFormAction.ts
+remains colocated because it serves that form concern; useEmailLinkToken.ts
+belongs in auth/hooks/ because verification and reset pages both consume it.
+Promote hooks to shared/hooks/ when actual cross-module reuse emerges, following
+the same promotion rules as other code.
+
+Keep standalone hooks directly in hooks/ and standalone utilities directly in
+lib/. Introduce a named concern folder only when multiple related files benefit
+from grouping; do not wrap a single helper in a one-file folder. Component/CSS
+and related TS grouping and the direct module layout exception still apply.
+Avoid redundant nesting such as lib/utils/ and unnecessary repetition of module
+names in filenames. Keep empty standard responsibility groups with .gitkeep and
+remove the marker when adding real files.
+
+These naming and hook refinements follow
+[issue #62](https://github.com/Bojan-Ivanovski/foltivo-frontend/issues/62).
