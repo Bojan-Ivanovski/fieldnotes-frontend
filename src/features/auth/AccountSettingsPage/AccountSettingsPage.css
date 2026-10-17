@@ -1,0 +1,12 @@
+.account-settings { max-width: 1050px; margin: auto; padding: 24px; color: var(--fn-foreground); font-family: var(--fn-font-sans); line-height: 1.6; }
+.account-settings nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.account-settings a { color: var(--fn-primary); text-underline-offset: 4px; }
+.account-settings fieldset { border: 0; padding: 0; margin: 18px 0; display: grid; gap: 20px; max-width: 540px; min-width: 0; }
+.account-settings fieldset > button { justify-self: start; }
+.account-settings p { color: var(--fn-muted-foreground); }
+.account-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.account-enrollment, .account-recovery { margin-block: 24px; padding: 22px; border: 1px solid var(--fn-border); border-radius: 9px; max-width: 590px; display: grid; gap: 16px; }
+.account-recovery pre { font-family: var(--fn-font-mono); color: var(--fn-primary); overflow: auto; user-select: all; }
+.account-list-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding-block: 16px; border-bottom: 1px solid var(--fn-border); }
+.account-list-row small { display: block; color: var(--fn-muted-foreground); font-size: 12px; }
+@media (max-width: 600px) { .account-settings { padding: 18px 4px; } .account-list-row { align-items: start; flex-wrap: wrap; } .account-enrollment, .account-recovery { padding: 15px; } }
