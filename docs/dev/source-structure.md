@@ -152,6 +152,7 @@ and structural checks together. The component-style checker accepts direct modul
 layouts, requires matching CSS imports for styled layouts and rejects multiple direct layouts per module.
 Shared layouts retain component-named folders.
 
-Use #59's dedicated auth pages as the migration baseline. The separate #60 decision
-owns removal or consolidation of currently unused domain scaffolding; avoid
-inventing consumers or moving it into shared to justify its existence.
+Use #59's dedicated auth pages as the migration baseline. The unused domain
+scaffolding and its dedicated tests were removed in #60.
+Keep the agreed product model in content-model.md and introduce production
+contracts with their actual consumers; do not recreate unused shared scaffolding.
