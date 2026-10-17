@@ -1,11 +1,22 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { addFolioReference, removeBook, removeFolioReference } from '../src/domain/content/references.ts'
+import {
+  addFolioReference,
+  removeBook,
+  removeFolioReference,
+} from '../src/domain/content/references.ts'
 import type { Book, Folio } from '../src/domain/content/types.ts'
 
-const folio: Folio = Object.freeze({ id: 'folio', libraryId: 'personal', name: 'Research' })
+const folio: Folio = Object.freeze({
+  id: 'folio',
+  libraryId: 'personal',
+  name: 'Research',
+})
 const planning: Book = Object.freeze({
-  id: 'planning', libraryId: 'personal', name: 'Planning', folioIds: Object.freeze([]),
+  id: 'planning',
+  libraryId: 'personal',
+  name: 'Planning',
+  folioIds: Object.freeze([]),
 })
 
 test('a Folio can exist without a Book and be referenced by multiple Books', () => {
@@ -15,7 +26,11 @@ test('a Folio can exist without a Book and be referenced by multiple Books', () 
   assert.deepEqual(first.folioIds, [folio.id])
   assert.deepEqual(second.folioIds, [folio.id])
   assert.deepEqual(planning.folioIds, [])
-  assert.deepEqual(folio, { id: 'folio', libraryId: 'personal', name: 'Research' })
+  assert.deepEqual(folio, {
+    id: 'folio',
+    libraryId: 'personal',
+    name: 'Research',
+  })
 })
 
 test('adding the same reference twice is idempotent', () => {
@@ -24,8 +39,10 @@ test('adding the same reference twice is idempotent', () => {
 })
 
 test('cross-Library references are rejected without changing the Book', () => {
-  assert.throws(() => addFolioReference(planning, { ...folio, libraryId: 'team' }),
-    /own Library/)
+  assert.throws(
+    () => addFolioReference(planning, { ...folio, libraryId: 'team' }),
+    /own Library/,
+  )
   assert.deepEqual(planning.folioIds, [])
 })
 

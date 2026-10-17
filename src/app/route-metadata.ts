@@ -1,4 +1,9 @@
-import { PRODUCT_DESCRIPTION, PRODUCT_NAME, PRODUCT_TAGLINE, PUBLIC_ORIGIN } from './brand.ts'
+import {
+  PRODUCT_DESCRIPTION,
+  PRODUCT_NAME,
+  PRODUCT_TAGLINE,
+  PUBLIC_ORIGIN,
+} from './brand.ts'
 
 export interface RouteMetadata {
   title: string
@@ -40,7 +45,9 @@ export function getRouteMetadata(pathname: string): RouteMetadata {
     '/mfa': 'Verify your sign-in',
     '/preview/account': 'Account preview',
   }
-  const title = titles[route] ?? (route.startsWith('/preview/') ? 'Content preview' : 'Page not found')
+  const title =
+    titles[route] ??
+    (route.startsWith('/preview/') ? 'Content preview' : 'Page not found')
   return {
     title: `${title} — ${PRODUCT_NAME}`,
     description: PRODUCT_DESCRIPTION,

@@ -18,7 +18,22 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route element={<AuthLayout />}>
-        {(['sign-in', 'sign-up', 'verify-email', 'forgot-password', 'reset-password', 'mfa'] as const).map(page => <Route key={page} path={`/${page}`} element={<AuthPage key={page} page={page} />} />)}
+        {(
+          [
+            'sign-in',
+            'sign-up',
+            'verify-email',
+            'forgot-password',
+            'reset-password',
+            'mfa',
+          ] as const
+        ).map((page) => (
+          <Route
+            key={page}
+            path={`/${page}`}
+            element={<AuthPage key={page} page={page} />}
+          />
+        ))}
       </Route>
       <Route element={<DiscoveryLayout />}>
         <Route path="/" element={<HomePage />} />
@@ -30,7 +45,9 @@ export function AppRoutes() {
         <Route path="/notes" element={<NotesPage />} />
         <Route path="/notes/new" element={<NewNotePage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route element={<RequireAuth />}><Route path="/settings" element={<AccountSettingsPage />} /></Route>
+        <Route element={<RequireAuth />}>
+          <Route path="/settings" element={<AccountSettingsPage />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

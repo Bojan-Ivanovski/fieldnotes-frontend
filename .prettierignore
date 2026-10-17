@@ -1,0 +1,13 @@
+# Dependencies and generated output
+node_modules/
+dist/
+dist-ssr/
+coverage/
+playwright-report/
+test-results/
+# Vendored assets and generated lockfiles
+vendor/
+public/
+package-lock.json
+# Documentation prose is maintained separately
+**/*.md

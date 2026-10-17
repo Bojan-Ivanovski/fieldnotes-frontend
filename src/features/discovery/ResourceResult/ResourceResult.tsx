@@ -12,10 +12,20 @@ export function ResourceResult({ resource }: { resource: DiscoveryResource }) {
       description={resource.description}
       metadata={
         <>
-          <span className="discovery-resource-type">{resource.type === 'book' ? 'Book' : 'Folio'}</span>
+          <span className="discovery-resource-type">
+            {resource.type === 'book' ? 'Book' : 'Folio'}
+          </span>
           <span>{resource.library.name}</span>
-          <span>{resource.library.kind === 'user' ? 'User Library' : 'Organization Library'}</span>
-          <span>{resource.visibility === 'public' ? 'Public' : 'Private · sample access'}</span>
+          <span>
+            {resource.library.kind === 'user'
+              ? 'User Library'
+              : 'Organization Library'}
+          </span>
+          <span>
+            {resource.visibility === 'public'
+              ? 'Public'
+              : 'Private · sample access'}
+          </span>
         </>
       }
     />

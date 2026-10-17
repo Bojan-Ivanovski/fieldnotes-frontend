@@ -39,3 +39,5 @@ Source organization follows [Component structure](component-structure.md).
 
 Product identity and intentional legacy identifiers are recorded in
 [Branding and compatibility](branding.md).
+
+Code formatting follows [Formatting](formatting.md).

@@ -1,6 +1,6 @@
 name: Incident report
 description: Record a reported problem. Create separate work items for investigation or fixes.
-title: "Incident: "
+title: 'Incident: '
 body:
   - type: markdown
     attributes:

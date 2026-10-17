@@ -8,7 +8,9 @@ export interface DiscoveryContextValue {
   preview: ReturnType<typeof createMockDiscoveryService>['controls']
 }
 
-export const DiscoveryContext = createContext<DiscoveryContextValue | null>(null)
+export const DiscoveryContext = createContext<DiscoveryContextValue | null>(
+  null,
+)
 
 export function useDiscovery() {
   const context = useContext(DiscoveryContext)

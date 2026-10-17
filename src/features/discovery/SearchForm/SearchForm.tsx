@@ -5,7 +5,13 @@ import type { FormEvent } from 'react'
 import type { SearchType } from '../types.ts'
 import { MAX_QUERY_LENGTH, searchUrl } from '../search-state.ts'
 
-export function SearchForm({ query = '', type = 'all' }: { query?: string; type?: SearchType }) {
+export function SearchForm({
+  query = '',
+  type = 'all',
+}: {
+  query?: string
+  type?: SearchType
+}) {
   const navigate = useNavigate()
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -26,7 +32,9 @@ export function SearchForm({ query = '', type = 'all' }: { query?: string; type?
         autoComplete="off"
         enterKeyHint="search"
       />
-      <Button type="submit" size="lg">Search <span aria-hidden="true">↗</span></Button>
+      <Button type="submit" size="lg">
+        Search <span aria-hidden="true">↗</span>
+      </Button>
     </form>
   )
 }
