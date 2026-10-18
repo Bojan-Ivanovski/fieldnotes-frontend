@@ -1,0 +1,25 @@
+.session-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.session-list-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding-block: 16px;
+  border-bottom: 1px solid var(--fn-border);
+}
+.session-list-row small {
+  display: block;
+  color: var(--fn-muted-foreground);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .session-list-row {
+    align-items: start;
+    flex-wrap: wrap;
+  }
+}

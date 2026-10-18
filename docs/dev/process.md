@@ -43,3 +43,5 @@ Product identity and intentional legacy identifiers are recorded in
 [Branding and compatibility](branding.md).
 
 Code formatting follows [Formatting](formatting.md).
+
+Account completion boundaries are recorded in [Account lifecycle](account-lifecycle.md).

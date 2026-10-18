@@ -7,7 +7,7 @@ import { AuthPanel } from '../../components/AuthPanel/AuthPanel.tsx'
 import { AuthForm } from '../../components/AuthForm/AuthForm.tsx'
 import { useFormAction } from '../../components/AuthForm/useFormAction.ts'
 import { PasswordField } from '../../components/PasswordField/PasswordField.tsx'
-import { useEmailLinkToken } from '../../hooks/useEmailLinkToken.ts'
+import { useEmailLinkToken } from '../../../../shared/hooks/useEmailLinkToken.ts'
 
 export function ResetPasswordPage() {
   const auth = useAuth()

@@ -47,7 +47,11 @@ export function validSession(value: unknown): value is Session {
 }
 const identityMutations = new Set([
   '/auth/login',
+  '/auth/providers/complete',
   '/auth/logout',
+  '/auth/email-change/confirm',
+  '/auth/account-closure',
+  '/auth/account-closure/recovery/confirm',
   '/auth/password/reset',
   '/auth/mfa/challenge',
   '/auth/passkeys/login/finish',

@@ -1,3 +1,4 @@
+import { CompleteProviderSignInPage } from '../../modules/auth/pages/CompleteProviderSignInPage/CompleteProviderSignInPage.tsx'
 import { Route, Routes } from 'react-router'
 import { DiscoveryLayout } from '../../modules/discovery/layout/DiscoveryLayout.tsx'
 import { WorkspaceLayout } from '../../shared/layout/WorkspaceLayout/WorkspaceLayout.tsx'
@@ -19,15 +20,27 @@ import { SearchPage } from '../../modules/discovery/pages/SearchPage/SearchPage.
 import { PreviewAccountPage } from '../../modules/discovery/pages/PreviewAccountPage/PreviewAccountPage.tsx'
 import { ResourcePreviewPage } from '../../modules/discovery/pages/ResourcePreviewPage/ResourcePreviewPage.tsx'
 
+import { ConfirmEmailChangePage } from '../../modules/account/pages/ConfirmEmailChangePage/ConfirmEmailChangePage.tsx'
+import { RecoverAccountPage } from '../../modules/account/pages/RecoverAccountPage/RecoverAccountPage.tsx'
+
 export function AppRoutes() {
   return (
     <Routes>
       <Route element={<AuthLayout />}>
+        <Route
+          path="/complete-provider-sign-in"
+          element={<CompleteProviderSignInPage />}
+        />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route
+          path="/confirm-email-change"
+          element={<ConfirmEmailChangePage />}
+        />
+        <Route path="/recover-account" element={<RecoverAccountPage />} />
         <Route path="/mfa" element={<MfaPage />} />
       </Route>
       <Route element={<DiscoveryLayout />}>

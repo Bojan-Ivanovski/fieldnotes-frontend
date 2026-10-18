@@ -1,5 +1,5 @@
 import './AccountSettingsPage.css'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
@@ -11,13 +11,17 @@ import {
   SettingsLayout,
   SettingsSection,
 } from 'fieldnotes-ui'
-import { Link } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import QRCode from 'qrcode'
 import { authRequest } from '../../../auth/data/client.ts'
-import type { AccountSession, Security } from '../../../auth/data/client.ts'
+import type { Security } from '../../../auth/data/client.ts'
 import { useAuth } from '../../../auth/providers/AuthProvider/context.ts'
 import { PasswordField } from '../../../auth/components/PasswordField/PasswordField.tsx'
 import { createPasskey, passkeysSupported } from '../../../auth/lib/passkeys.ts'
+import { LinkedProvidersSettings } from '../../components/LinkedProvidersSettings/LinkedProvidersSettings.tsx'
+import { EmailSettings } from '../../components/EmailSettings/EmailSettings.tsx'
+import { AccountClosureSettings } from '../../components/AccountClosureSettings/AccountClosureSettings.tsx'
+import { SessionsSettings } from '../../components/SessionsSettings/SessionsSettings.tsx'
 export function AccountSettingsPage() {
   const auth = useAuth()
   const key = auth.session?.user?.id
@@ -27,8 +31,24 @@ function AccountSettings() {
   const auth = useAuth()
   const user = auth.session!.user!
   const [pending, setPending] = useState(false)
-  const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
+  const operationInFlight = useRef(false)
+  const [params, setParams] = useSearchParams()
+  const [error, setError] = useState(
+    params.get('provider') === 'failed'
+      ? 'Provider linking could not be completed. Please try again.'
+      : '',
+  )
+  const [message, setMessage] = useState(
+    params.get('provider') === 'linked'
+      ? 'Your sign-in provider has been linked.'
+      : '',
+  )
+  useEffect(() => {
+    if (!params.has('provider')) return
+    const cleaned = new URLSearchParams(params)
+    cleaned.delete('provider')
+    setParams(cleaned, { replace: true })
+  }, [params, setParams])
   const [setup, setSetup] = useState<{ secret: string; uri: string } | null>(
     null,
   )
@@ -46,13 +66,9 @@ function AccountSettings() {
       authRequest<Security>('/auth/security', { signal }),
     retry: false,
   })
-  const sessions = useQuery({
-    queryKey: ['account-sessions', user.id],
-    queryFn: ({ signal }) =>
-      authRequest<{ sessions: AccountSession[] }>('/auth/sessions', { signal }),
-    retry: false,
-  })
   async function perform(action: () => Promise<void>) {
+    if (operationInFlight.current) return
+    operationInFlight.current = true
     setPending(true)
     setError('')
     setMessage('')
@@ -61,6 +77,7 @@ function AccountSettings() {
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Please try again.')
     } finally {
+      operationInFlight.current = false
       setPending(false)
     }
   }
@@ -81,7 +98,9 @@ function AccountSettings() {
         navigation={
           <nav aria-label="Account settings">
             <a href="#profile">Profile</a>
+            <a href="#email">Email</a>
             <a href="#security">Security</a>
+            <a href="#closure">Close account</a>
             <a href="#sessions">Sessions</a>
             <Link to="/search">Explore</Link>
           </nav>
@@ -133,6 +152,12 @@ function AccountSettings() {
             </fieldset>
           </form>
         </SettingsSection>
+        <EmailSettings
+          pending={pending}
+          perform={perform}
+          confirm={setConfirmation}
+          notify={setMessage}
+        />
         <SettingsSection
           title="Password"
           description="Changing your password signs you out of every session. Enrolled security factors stay enabled."
@@ -493,72 +518,24 @@ function AccountSettings() {
             ))}
           </SettingsSection>
         )}
-        <SettingsSection
-          id="sessions"
-          title="Sessions"
-          description="Revoke a session to sign that browser out. Revoking this session signs you out here."
-        >
-          {sessions.isPending ? (
-            <p role="status">Loading sessions…</p>
-          ) : sessions.isError ? (
-            <Alert tone="destructive">
-              Sessions could not be loaded.{' '}
-              <Button
-                onClick={() => {
-                  void sessions.refetch()
-                }}
-              >
-                Retry sessions
-              </Button>
-            </Alert>
-          ) : (
-            sessions.data.sessions.map((session) => (
-              <div key={session.id} className="account-list-row">
-                <span>
-                  {session.current ? 'This browser' : 'Another browser'}
-                  <small>
-                    Started {new Date(session.createdAt).toLocaleString()}
-                    <br />
-                    Expires {new Date(session.expiresAt).toLocaleString()}
-                  </small>
-                </span>
-                <Button
-                  disabled={pending}
-                  variant="outline"
-                  onClick={() => {
-                    setConfirmation({
-                      title: 'Revoke session?',
-                      description: session.current
-                        ? 'This signs you out of this browser immediately.'
-                        : 'This signs the other browser out. That person must sign in again.',
-                      action: async () => {
-                        await auth.mutate(
-                          `/auth/sessions/${encodeURIComponent(session.id)}`,
-                          undefined,
-                          'DELETE',
-                        )
-                        setMessage('Session revoked.')
-                      },
-                    })
-                  }}
-                >
-                  Revoke {session.current ? 'this session' : 'session'}
-                </Button>
-              </div>
-            ))
-          )}
-          <Button
-            disabled={pending}
-            variant="outline"
-            onClick={() => {
-              void perform(async () => {
-                await auth.mutate('/auth/logout')
-              })
-            }}
-          >
-            Sign out
-          </Button>
-        </SettingsSection>
+        <SessionsSettings
+          pending={pending}
+          perform={perform}
+          confirm={setConfirmation}
+          notify={setMessage}
+        />
+        <LinkedProvidersSettings
+          pending={pending}
+          perform={perform}
+          confirm={setConfirmation}
+          notify={setMessage}
+        />
+        <AccountClosureSettings
+          pending={pending}
+          perform={perform}
+          confirm={setConfirmation}
+          notify={setMessage}
+        />
       </SettingsLayout>
       <ConfirmDialog
         open={Boolean(confirmation)}

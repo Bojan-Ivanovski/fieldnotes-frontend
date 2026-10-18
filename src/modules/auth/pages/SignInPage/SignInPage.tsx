@@ -1,4 +1,5 @@
 import './SignInPage.css'
+import { ProviderSignIn } from '../../components/ProviderSignIn/ProviderSignIn.tsx'
 import { useEffect, useRef } from 'react'
 import { useNavigate, Link, useSearchParams } from 'react-router'
 import type { FormEvent } from 'react'
@@ -88,8 +89,19 @@ export function SignInPage() {
           Sign in with a passkey
         </Button>
       )}
+      <ProviderSignIn
+        pending={action.pending || !ready}
+        perform={action.perform}
+      />
+      {params.get('provider') === 'failed' && (
+        <p role="alert">
+          Provider sign-in could not be completed. Try again or use your
+          password. If your account is closed, use account recovery.
+        </p>
+      )}
       <div className="sign-in-links">
         <Link to="/forgot-password">Forgot your password?</Link>
+        <Link to="/recover-account">Recover a closed account</Link>
         <span>
           New here?{' '}
           <Link to={`/sign-up?returnTo=${encodeURIComponent(returnTo)}`}>
