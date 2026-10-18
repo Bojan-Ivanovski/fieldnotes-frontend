@@ -23,6 +23,8 @@ export interface AccountSession {
   current: boolean
   createdAt: string
   expiresAt: string
+  userAgent?: string | null
+  lastSeenAt?: string | null
 }
 export class AuthError extends Error {
   code: string
@@ -47,7 +49,7 @@ export function safeReturnTo(value: string | null): string {
     const url = new URL(value, 'https://foltivo.local')
     if (
       url.origin !== 'https://foltivo.local' ||
-      /^\/(sign-in|sign-up|verify-email|forgot-password|reset-password|mfa)(\/|$)/i.test(
+      /^\/(sign-in|sign-up|verify-email|forgot-password|reset-password|mfa|confirm-email-change|recover-account|complete-provider-sign-in)(\/|$)/i.test(
         decodeURIComponent(url.pathname),
       )
     )
@@ -62,7 +64,11 @@ type Coordinate = <T>(operation: () => Promise<T>) => Promise<T>
 const cookieRequests = new Set([
   '/auth/session',
   '/auth/login',
+  '/auth/providers/complete',
   '/auth/logout',
+  '/auth/email-change/confirm',
+  '/auth/account-closure',
+  '/auth/account-closure/recovery/confirm',
   '/auth/mfa/challenge',
   '/auth/passkeys/login/finish',
 ])

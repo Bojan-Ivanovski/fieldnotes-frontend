@@ -4,11 +4,13 @@ import { Button, Field, Input } from 'fieldnotes-ui'
 export function PasswordField({
   label = 'Password',
   name = 'password',
+  controlId = name,
   autoComplete = 'current-password',
   newPassword = false,
 }: {
   label?: string
   name?: string
+  controlId?: string
   autoComplete?: string
   newPassword?: boolean
 }) {
@@ -16,7 +18,7 @@ export function PasswordField({
   return (
     <Field
       label={label}
-      controlId={name}
+      controlId={controlId}
       description={
         newPassword
           ? 'Use 15–128 characters. Spaces and pasted passwords are welcome.'

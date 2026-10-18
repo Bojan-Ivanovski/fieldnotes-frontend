@@ -174,8 +174,9 @@ contracts with their actual consumers; do not recreate unused shared scaffolding
 
 Use module hooks/ for hooks consumed across that module. A hook exclusive to a
 component, provider or layout stays with its owner. AuthForm/useFormAction.ts
-remains colocated because it serves that form concern; useEmailLinkToken.ts
-belongs in auth/hooks/ because verification and reset pages both consume it.
+remains colocated because it serves that form concern. useEmailLinkToken.ts was
+promoted to shared/hooks/ when account confirmation/recovery joined its auth
+consumers; its location reflects actual cross-module reuse.
 Promote hooks to shared/hooks/ when actual cross-module reuse emerges, following
 the same promotion rules as other code.
 

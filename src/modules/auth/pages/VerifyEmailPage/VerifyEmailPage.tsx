@@ -7,7 +7,7 @@ import { AuthPanel } from '../../components/AuthPanel/AuthPanel.tsx'
 import { AuthForm } from '../../components/AuthForm/AuthForm.tsx'
 import { useFormAction } from '../../components/AuthForm/useFormAction.ts'
 import { EmailField } from '../../components/EmailField/EmailField.tsx'
-import { useEmailLinkToken } from '../../hooks/useEmailLinkToken.ts'
+import { useEmailLinkToken } from '../../../../shared/hooks/useEmailLinkToken.ts'
 
 export function VerifyEmailPage() {
   const auth = useAuth()

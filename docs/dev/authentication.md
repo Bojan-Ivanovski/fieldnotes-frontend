@@ -64,8 +64,9 @@ a secure context and server-validated user verification.
 Public content discovery remains sample data until its API delivery. The preview
 banner and chooser explicitly identify that boundary. A real account is never
 fed into sample access lists, and an API failure never selects a preview account.
-Organization membership, content permissions, OAuth, email changes and account
-closure remain separate product work.
+Organization membership and content permissions remain separate product work.
+Account management now includes verified email changes, configured GitHub/Google
+sign-in links, bulk session revocation and recoverable closure.
 
 ## Verification
 
@@ -105,7 +106,54 @@ useFormAction shares only pending/error/message mechanics. EmailField and
 PasswordField supply reusable fields. No shared component selects a flow using
 a page flag. Existing AuthLayout owns branding, route-change focus and scrolling.
 
-Verification and reset pages use `src/modules/auth/hooks/useEmailLinkToken.ts`. It captures
+Verification and reset pages use `src/shared/hooks/useEmailLinkToken.ts`. It captures
 the fragment without side effects during initialization, then scrubs the URL in
 an effect while retaining the token in page-local state. Pages continue to use
 useAuth/mutate and safeReturnTo rather than creating independent session state.
+
+
+## Account management
+
+Account-owned settings sections live in `src/modules/account/components`, with
+one page-level operation lock shared by security, email, providers, sessions and
+closure. Credentials are collected for the specific sensitive action and sent to
+the existing reauthentication endpoint before its mutation. Form actions also use
+a synchronous guard against duplicate submissions. Cache clearing and identity
+changes continue through the authoritative auth runtime.
+
+Email changes leave the current address active until confirmation. The
+`/confirm-email-change` page keeps the fragment token in memory and requires the
+matching fully authenticated account. If signed out, open sign-in in another tab
+using the current address and then check the session without reloading the
+confirmation page. Reopen the original email link after a reload. Confirmation
+signs out all sessions and preserves enrolled factors. A fresh change request
+replaces the earlier pending link; pending changes can be cancelled.
+
+Provider buttons appear only for configured GitHub/Google providers. Linking is
+explicit in settings after reauthentication; matching email never links an
+account automatically. Login uses already linked accounts and still requires
+enrolled MFA. Backend-generated authorization addresses are restricted to known
+HTTPS provider endpoints; no OAuth credentials or repository scopes are kept in
+the frontend. The backend callback and cookie must be reachable through the same
+browser-visible origin/reverse proxy. The login callback issues a short-lived
+browser-bound grant without changing cookies and redirects to `/complete-provider-sign-in#token=...`. Its explicit
+Continue action completes sign-in through `/auth/providers/complete`, inside
+the same browser Web Lock used by other cookie-changing endpoints. The token is
+captured in memory and removed from the URL. Completed sign-in continues to MFA
+when required or settings. Link callbacks return fixed status flags to settings;
+local return destinations cannot select callback URLs.
+
+Sessions show the available user-agent and last-active information without
+claiming a device identity or location. Bulk revocation retains the current
+session. Closing an account ends every session and starts a 30-day recovery
+period. The account and current User Library identity are retained until expiry;
+there is no implemented document/contribution model to promise additional data
+behavior for. Unresolved organization ownership blocks closure when applicable.
+The `/recover-account` page requests an email link, then requires the account
+password and enrolled authenticator or unused recovery code. Recovery restores
+normal sign-in without removing security factors; an email link alone is not
+sufficient.
+
+These additions have not been exercised through application tests in this change.
+The verification commands above describe the existing baseline, not coverage of
+every new account lifecycle/provider flow.
